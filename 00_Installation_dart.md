@@ -38,7 +38,25 @@ cmake .. -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX \
          -DCMAKE_PREFIX_PATH=$CONDA_PREFIX \
          -DENABLE_DAP=ON
 
-make -j$(nproc)
+make -j 4
+make install
+cd ../..
+```
+
+## Build and Install netcdf-fortran
+```console
+git clone https://github.com/Unidata/netcdf-c.git
+cd netcdf-c
+export CC=icx
+export CXX=icpx
+export CFLAGS="-O3 -xHost"
+export CONDA_PREFIX=$CONDA_PREFIX
+mkdir build && cd build
+cmake .. -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX \
+         -DCMAKE_PREFIX_PATH=$CONDA_PREFIX \
+         -DENABLE_DAP=ON
+
+make -j 4
 make install
 cd ../..
 ```
