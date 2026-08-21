@@ -57,6 +57,7 @@ export FC=ifx
 export F77=ifx
 export CPPFLAGS="-I${CONDA_PREFIX}/include"
 export LDFLAGS="-L${CONDA_PREFIX}/lib"
+export PATH=${CONDA_PREFIX}/bin:$PATH
 export LD_LIBRARY_PATH="${CONDA_PREFIX}/lib:${LD_LIBRARY_PATH}"
 export PKG_CONFIG_PATH="$CONDA_PREFIX/lib/pkgconfig:$PKG_CONFIG_PATH"
 mkdir build && cd build
