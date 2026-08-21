@@ -52,7 +52,7 @@ export FCFLAGS="-O2 -march=native"
 wget https://zlib.net/zlib-$ZLIB_VERSION.tar.gz
 tar xzf zlib-$ZLIB_VERSION.tar.gz
 cd zlib-$ZLIB_VERSION
-./configure --prefix=$INSTALL_DIR --static
+./configure --prefix=$INSTALL_DIR 
 make -j$J
 make install
 cd ..
