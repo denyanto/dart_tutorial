@@ -60,5 +60,33 @@ cmake .. \
   -DNETCDF_C_INCLUDE_DIR=$CONDA_PREFIX/include
 make -j 4
 make install
-cd ..
+cd ../..
+```
+
+## Verify the Netcdf Installation
+```console
+# Check the C configuration tool
+nc-config --cc
+
+# Check the Fortran configuration tool
+nf-config --fc
+```
+
+## Downloading DART
+```console
+cd $HOME
+git clone https://github.com/NCAR/DART.git
+```
+
+Edit in the DART/build_templates/mkmf.template file
+```console
+MPIFC = mpiifx
+MPILD = mpiifx
+FC = ifx
+LD = ifx
+NETCDF = $CONDA_PREFIX
+INCS = -I$(NETCDF)/include
+LIBS = -L$(NETCDF)/lib -lnetcdf -lnetcdff
+FFLAGS = -O2 $(INCS)
+LDFLAGS = $(FFLAGS) $(LIBS)
 ```
