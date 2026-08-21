@@ -31,12 +31,19 @@ git clone https://github.com/Unidata/netcdf-c.git
 cd netcdf-c
 export CC=icx
 export CXX=icpx
-export CFLAGS="-O3 -xHost"
+export CFLAGS="-O2 -march=native"
 export CONDA_PREFIX=$CONDA_PREFIX
 mkdir build && cd build
-cmake .. -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX \
-         -DCMAKE_PREFIX_PATH=$CONDA_PREFIX \
-         -DENABLE_DAP=ON
+cmake .. \
+  -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX \
+  -DCMAKE_C_COMPILER=icx \
+  -DCMAKE_C_FLAGS="-O2 -march=native" \
+  -DBUILD_SHARED_LIBS=OFF \
+  -DBUILD_TESTING=OFF \
+  -DENABLE_NETCDF_4=ON \
+  -DENABLE_DAP=OFF \
+  -DENABLE_BYTERANGE=OFF \
+  -DENABLE_NCZARR=OFF
 
 make -j 4
 make install
@@ -55,9 +62,13 @@ export LDFLAGS="-L${CONDA_PREFIX}/lib"
 export LD_LIBRARY_PATH="${CONDA_PREFIX}/lib:${LD_LIBRARY_PATH}"
 mkdir build && cd build
 cmake .. \
-  -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX \
-  -DNETCDF_C_LIBRARY=$CONDA_PREFIX/lib/libnetcdf.so \
-  -DNETCDF_C_INCLUDE_DIR=$CONDA_PREFIX/include
+  -DCMAKE_INSTALL_PREFIX=${CONDA_PREFIX} \
+  -DCMAKE_Fortran_COMPILER=ifx \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_Fortran_FLAGS="-O2 -march=native" \
+  -DNetCDF_C_LIBRARY=${CONDA_PREFIX}/lib/libnetcdf.a \
+  -DNetCDF_C_INCLUDE_DIR=${CONDA_PREFIX}/include \
+  -DENABLE_TESTS=OFF
 make -j 4
 make install
 cd ../..
