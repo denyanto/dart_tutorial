@@ -17,60 +17,99 @@ conda activate dart
 conda install -c conda-forge cmake make hdf5 curl zlib libcurl
 ```
 
-## Activate Intel oneAPI Compilers
+
+## Setting install location and library version
 ```console
+INSTALL_DIR=$CONDA_PREFIX
+NC_C_VERSION=4.10.1
+NC_F_VERSION=4.6.4
+HDF5_VERSION=1.14.0
+ZLIB_VERSION=1.3.2
+J=8
+```
+
+## Activate and load Intel oneAPI Compilers
+```console
+# Activate Intel oneAPI Compilers
 ml restore intel
+
 # Verify the compilers are active in your session
 icx --version
 ifx --version
+
+# Load Intel oneAPI Compilers
+export CC=icx
+export CXX=icpx
+export FC=ifx
+export F77=ifx
+export CFLAGS="-O2 -march=native"
+export CXXFLAGS="-O2 -march=native"
+export FCFLAGS="-O2 -march=native"
+```
+
+## Build and Install zlib
+```console
+wget https://zlib.net/zlib-$ZLIB_VERSION.tar.gz
+tar xzf zlib-$ZLIB_VERSION.tar.gz
+cd zlib-$ZLIB_VERSION
+./configure --prefix=$INSTALL_DIR --static
+make -j$J
+make install
+cd ..
+```
+
+## Build and Install hdf5
+```console
+wget https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.14/hdf5-$HDF5_VERSION/src/hdf5-$HDF5_VERSION.tar.gz
+tar xzf hdf5-$HDF5_VERSION.tar.gz
+cd hdf5-$HDF5_VERSION
+mkdir build && cd build
+cmake .. \
+  -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DBUILD_SHARED_LIBS=OFF \
+  -DHDF5_BUILD_STATIC_LIBS=ON \
+  -DHDF5_BUILD_TOOLS=OFF \
+  -DHDF5_ENABLE_Z_LIB_SUPPORT=ON
+make -j$J #cmake --build . -j$J
+make install #cmake --install .
+cd ../..
 ```
 
 ## Build and Install netcdf-c
 ```console
-git clone https://github.com/Unidata/netcdf-c.git
-cd netcdf-c
-export CC=icx
-export CXX=icpx
-export CFLAGS="-O2 -march=native"
-export CONDA_PREFIX=$CONDA_PREFIX
+wget https://github.com/Unidata/netcdf-c/archive/refs/tags/v$NC_C_VERSION.tar.gz
+tar xzf v$NC_C_VERSION.tar.gz
+cd netcdf-c-$NC_C_VERSION
 mkdir build && cd build
 cmake .. \
-  -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX \
-  -DCMAKE_C_COMPILER=icx \
+  -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR \
   -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_C_FLAGS="-O2 -march=native" \
   -DENABLE_NETCDF_4=ON \
   -DENABLE_DAP=OFF \
-  -DENABLE_TESTS=OFF
-
-make -j 4
-make install
+  -DBUILD_SHARED_LIBS=OFF \
+  -DBUILD_STATIC_LIBS=ON \
+  -DHDF5_ROOT=$INSTALL_DIR
+make -j$J #cmake --build . -j$J
+make install #cmake --install .
 cd ../..
 ```
 
 ## Build and Install netcdf-fortran
 ```console
-git clone https://github.com/Unidata/netcdf-fortran.git
-cd netcdf-fortran
-export CC=icx
-export FC=ifx
-export F77=ifx
-export CPPFLAGS="-I${CONDA_PREFIX}/include"
-export LDFLAGS="-L${CONDA_PREFIX}/lib"
-export PATH=${CONDA_PREFIX}/bin:$PATH
-export LD_LIBRARY_PATH="${CONDA_PREFIX}/lib:${LD_LIBRARY_PATH}"
-export PKG_CONFIG_PATH="$CONDA_PREFIX/lib/pkgconfig:$PKG_CONFIG_PATH"
+wget https://github.com/Unidata/netcdf-fortran/archive/refs/tags/v$NC_F_VERSION.tar.gz
+tar xzf v$NC_F_VERSION.tar.gz
+cd netcdf-fortran-$NC_F_VERSION
 mkdir build && cd build
 cmake .. \
-  -DCMAKE_INSTALL_PREFIX=${CONDA_PREFIX} \
-  -DCMAKE_Fortran_COMPILER=ifx \
+  -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR \
   -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_Fortran_FLAGS="-O2 -march=native" \
-  -DNetCDF_C_LIBRARY=${CONDA_PREFIX}/lib/libnetcdf.a \
-  -DNetCDF_C_INCLUDE_DIR=${CONDA_PREFIX}/include \
+  -DBUILD_SHARED_LIBS=OFF \
+  -DBUILD_STATIC_LIBS=ON \
+  -DNetCDF_ROOT=$INSTALL_DIR \
   -DENABLE_TESTS=OFF
-make -j 4
-make install
+cmake --build . -j$J
+cmake --install .
 cd ../..
 ```
 
