@@ -53,9 +53,12 @@ export F77=ifx
 export CPPFLAGS="-I${CONDA_PREFIX}/include"
 export LDFLAGS="-L${CONDA_PREFIX}/lib"
 export LD_LIBRARY_PATH="${CONDA_PREFIX}/lib:${LD_LIBRARY_PATH}"
-./configure --prefix=$CONDA_PREFIX --disable-fortran-type-check
-make -j$(nproc)
-make check
+mkdir build && cd build
+cmake .. \
+  -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX \
+  -DNETCDF_C_LIBRARY=$CONDA_PREFIX/lib/libnetcdf.so \
+  -DNETCDF_C_INCLUDE_DIR=$CONDA_PREFIX/include
+make -j 4
 make install
 cd ..
 ```
