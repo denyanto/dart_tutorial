@@ -76,9 +76,11 @@ nf-config --fc
 ```console
 cd $HOME
 git clone https://github.com/NCAR/DART.git
+cd DART
+cp build_templates/mkmf.template.ifx.linux build_templates/mkmf.template
 ```
 
-Edit in the DART/build_templates/mkmf.template file
+Edit in the build_templates/mkmf.template file
 ```console
 MPIFC = mpiifx
 MPILD = mpiifx
@@ -89,4 +91,10 @@ INCS = -I$(NETCDF)/include
 LIBS = -L$(NETCDF)/lib -lnetcdf -lnetcdff
 FFLAGS = -O2 $(INCS)
 LDFLAGS = $(FFLAGS) $(LIBS)
+```
+
+Build and test DART 
+```console
+cd models/lorenz_63/work
+./quickbuild.sh
 ```
