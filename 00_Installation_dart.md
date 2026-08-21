@@ -58,6 +58,7 @@ export F77=ifx
 export CPPFLAGS="-I${CONDA_PREFIX}/include"
 export LDFLAGS="-L${CONDA_PREFIX}/lib"
 export LD_LIBRARY_PATH="${CONDA_PREFIX}/lib:${LD_LIBRARY_PATH}"
+export PKG_CONFIG_PATH="$CONDA_PREFIX/lib/pkgconfig:$PKG_CONFIG_PATH"
 mkdir build && cd build
 cmake .. \
   -DCMAKE_INSTALL_PREFIX=${CONDA_PREFIX} \
