@@ -37,13 +37,11 @@ mkdir build && cd build
 cmake .. \
   -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX \
   -DCMAKE_C_COMPILER=icx \
+  -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_C_FLAGS="-O2 -march=native" \
-  -DBUILD_SHARED_LIBS=OFF \
-  -DBUILD_TESTING=OFF \
   -DENABLE_NETCDF_4=ON \
   -DENABLE_DAP=OFF \
-  -DENABLE_BYTERANGE=OFF \
-  -DENABLE_NCZARR=OFF
+  -DENABLE_TESTS=OFF
 
 make -j 4
 make install
