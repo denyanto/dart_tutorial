@@ -45,18 +45,17 @@ cd ../..
 
 ## Build and Install netcdf-fortran
 ```console
-git clone https://github.com/Unidata/netcdf-c.git
-cd netcdf-c
+git clone https://github.com/Unidata/netcdf-fortran.git
+cd netcdf-fortran
 export CC=icx
-export CXX=icpx
-export CFLAGS="-O3 -xHost"
-export CONDA_PREFIX=$CONDA_PREFIX
-mkdir build && cd build
-cmake .. -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX \
-         -DCMAKE_PREFIX_PATH=$CONDA_PREFIX \
-         -DENABLE_DAP=ON
-
-make -j 4
+export FC=ifx
+export F77=ifx
+export CPPFLAGS="-I${CONDA_PREFIX}/include"
+export LDFLAGS="-L${CONDA_PREFIX}/lib"
+export LD_LIBRARY_PATH="${CONDA_PREFIX}/lib:${LD_LIBRARY_PATH}"
+./configure --prefix=$CONDA_PREFIX --disable-fortran-type-check
+make -j$(nproc)
+make check
 make install
-cd ../..
+cd ..
 ```
