@@ -45,12 +45,28 @@ make install
 cd ../..
 ```
 
-Re-ompile
+Re-configure
 ```console
-mv -r grib2 grib2lib
+cp -r grib2 grib2lib
 ./clean
 ./configure
-mv -r grib2lib grib2
+cp -r grib2lib grib2
+```
+
+
+Edit configure.wps 
+```console
+                        -L$(NETCDF)/lib -lnetcdff -lnetcdf
+```
+
+Into 
+```console
+                        -L$(NETCDF)/lib -lnetcdff -lnetcdf -lhdf5_hl -lhdf5
+```
+
+
+Re-compile
+```console
 ./compile &> log &
 tail -f log
 ```
