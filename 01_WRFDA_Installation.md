@@ -211,3 +211,13 @@ Re-compile
 tail -f log
 ```
 
+## Building WRFDA
+After that, we need to copy the source code from
+```console
+cd $HOME/misc
+cp -r WRFV4.7.1 WRFDA
+cd WRFDA
+./clean
+./compile all_wrfvar &> log &
+tail -f log
+```
