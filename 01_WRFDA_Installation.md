@@ -83,6 +83,19 @@ This build of WRF will use classic (non-compressed) NETCDF format
 *****************************************************************************
 ```
 
+Edit configure.wps 
+```console
+ LIB_EXTERNAL    = \
+                      -L$(WRF_SRC_ROOT_DIR)/external/io_netcdf -lwrfio_nf -L/home/danang-eko/.conda/envs/dart/lib -lnetcdff -lnetcdf
+```
+
+with 
+```console
+ LIB_EXTERNAL    = \
+                      -L$(WRF_SRC_ROOT_DIR)/external/io_netcdf -lwrfio_nf -L/home/danang-eko/.conda/envs/dart/lib -lnetcdff -lnetcdf -lhdf5_hl -lhdf5
+```
+
+
 ```console
 cd WPS-4.6.0
 export NETCDF=$CONDA_PREFIX
