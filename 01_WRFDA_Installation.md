@@ -64,6 +64,9 @@ Edit configure.wps
 ```console
                         -L$(NETCDF)/lib -lnetcdff -lnetcdf
 
+COMPRESSION_LIBS    = -L/home/danang-eko/misc/WPS-4.6.0/grib2/lib -ljasper -lpng -lz
+COMPRESSION_INC     = -I/home/danang-eko/misc/WPS-4.6.0/grib2/include 
+
 DM_FC               = mpif90 
 DM_CC               = mpicc 
 ```
@@ -71,6 +74,9 @@ DM_CC               = mpicc
 with 
 ```console
                         -L$(NETCDF)/lib -lnetcdff -lnetcdf -lhdf5_hl -lhdf5
+COMPRESSION_LIBS    = -L/home/danang-eko/misc/WPS-4.6.0/grib2/lib -ljasper -lpng -lz
+COMPRESSION_INC     = -I/home/danang-eko/misc/WPS-4.6.0/grib2/include -I/home/danang-eko/misc/WPS-4.6.0/grib2/inclu
+de/jasper
 
 DM_FC               = mpif90 -f90=$(SFC)
 DM_CC               = mpicc -cc=$(SCC)
