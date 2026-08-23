@@ -303,3 +303,8 @@ For this purpose we are going to compile WRF. Compilation should take about 20-3
 ./compile all_wrfvar &> log &
 tail -f log
 ```
+
+Once the compilation completes, to check whether it was successful, you need to look for executables in the `WRFV4.7.1/var` directory.
+```console
+ls -l var/build/*exe var/obsproc/src/obsproc.exe
+```
