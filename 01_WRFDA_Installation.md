@@ -20,11 +20,17 @@ export WRF_DIR=../WRFV4.7.1
 Edit configure.wps 
 ```console
                         -L$(NETCDF)/lib -lnetcdff -lnetcdf
+
+DM_FC               = mpif90
+DM_CC               = mpicc
 ```
 
-Into 
+with 
 ```console
                         -L$(NETCDF)/lib -lnetcdff -lnetcdf -lhdf5_hl -lhdf5
+
+DM_FC               = mpif90 -f90=$(SFC)
+DM_CC               = mpicc -cc=$(SCC)
 ```
 
 Compile
@@ -57,11 +63,17 @@ cp -r grib2lib grib2
 Edit configure.wps 
 ```console
                         -L$(NETCDF)/lib -lnetcdff -lnetcdf
+
+DM_FC               = mpif90 
+DM_CC               = mpicc 
 ```
 
-Into 
+with 
 ```console
                         -L$(NETCDF)/lib -lnetcdff -lnetcdf -lhdf5_hl -lhdf5
+
+DM_FC               = mpif90 -f90=$(SFC)
+DM_CC               = mpicc -cc=$(SCC)
 ```
 
 
