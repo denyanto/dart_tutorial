@@ -94,8 +94,45 @@ with
                       -L$(WRF_SRC_ROOT_DIR)/external/io_netcdf -lwrfio_nf -L/home/danang-eko/.conda/envs/dart/lib -lnetcdff -lnetcdf -lhdf5_hl -lhdf5
 ```
 
+For this purpose we are going to compile WRF. Compilation should take about 20-30 minutes. The ongoing compilation can be checked.
+```console
+./compile em_real &> log &
+tail -f log
+```
+
+If we see this message, you done it right ;)
 
 ```console
+==========================================================================
+build started:   lun nov 18 21:48:48 -03 2019
+build completed: lun nov 18 21:56:41 -03 2019
+ 
+--->                  Executables successfully built                  <---
+ 
+==========================================================================
+```
+
+Once the compilation completes, to check whether it was successful, you need to look for executables in the `WRFV4.7.1/main` directory.
+```console
+ls -las main/*.exe
+real.exe 
+wrf.exe 
+ideal.exe 
+tc.exe 
+```
+
+These executables are linked to 2 different directories. You can choose to run WRF from either directory.
+```console
+WRFV4.7.1/run
+WRFV4.7.1/test/em_real
+```
+
+## Building WPS
+Now we need to download and compile WPS
+```console
+cd $HOME/misc
+wget https://github.com/wrf-model/WPS/archive/refs/tags/v4.6.0.tar.gz
+tar -xvzf v4.6.0.tar.gz
 cd WPS-4.6.0
 export NETCDF=$CONDA_PREFIX
 export WRF_DIR=../WRFV4.7.1
