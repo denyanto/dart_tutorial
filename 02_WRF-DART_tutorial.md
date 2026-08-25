@@ -1,4 +1,4 @@
-# DART-WRF Tutorial
+# WRF-DART Tutorial
 This tutorial based on the https://docs.dart.ucar.edu/en/latest/models/wrf/tutorial/README.html.
 ## Build the WRF-DART executables
 ```console
