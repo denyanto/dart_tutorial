@@ -28,8 +28,32 @@ mkdir $BASE_DIR/scripts
 cp -R $DART_DIR/models/wrf/shell_scripts/* $BASE_DIR/scripts
 ```
 ## Locate the WRF, WPS and WRFDA executables
-Edit/configure $BASE_DIR/scripts/param.sh with proper paths and variables
+Edit/configure '$BASE_DIR/scripts/param.sh' file with proper paths and variables
 ```console
-cd $DART_DIR/models/wrf/work
-./quickbuild.sh
+# -----------------------------------------------------------
+# Directory structure
+# IMPORTANT: scripts rely on these relative names
+# -----------------------------------------------------------
+BASE_DIR=/scratch/
+RUN_DIR=${BASE_DIR}/rundir
+TEMPLATE_DIR=${BASE_DIR}/template
+OBSPROC_DIR=${BASE_DIR}/obsproc
+OUTPUT_DIR=${BASE_DIR}/output
+ICBC_DIR=${BASE_DIR}/icbc
+POST_STAGE_DIR=${BASE_DIR}/post
+OBS_DIAG_DIR=${BASE_DIR}/obs_diag
+PERTS_DIR=${BASE_DIR}/perts
+# -----------------------------------------------------------
+# Component paths
+# -----------------------------------------------------------
+SHELL_SCRIPTS_DIR=${BASE_DIR}/scripts
+DART_DIR=/glade/work/bmraczka/DART
+WRF_DM_SRC_DIR=/glade/work/bmraczka/WRF/WRFv4.5_git
+WPS_SRC_DIR=/glade/work/bmraczka/WRF/WPSv4.5_git
+VAR_SRC_DIR=/glade/work/bmraczka/WRF/WRFDAv4.5_git
+```
+Run the setup.sh script to create the proper directory structure and to move the executables and support files to the proper locations.
+```console
+cd $BASE_DIR/scripts
+./setup.sh param.sh
 ```
