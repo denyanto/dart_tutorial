@@ -27,7 +27,7 @@ cp $DART_DIR/models/wrf/tutorial/template_nest/*.*   $BASE_DIR/template/.
 mkdir $BASE_DIR/scripts
 cp -R $DART_DIR/models/wrf/shell_scripts/* $BASE_DIR/scripts
 ```
-## Locate the WRF, WPS and WRFDA executables
+## Locate the DART, WRF, WPS and WRFDA executables path
 Edit/configure '$BASE_DIR/scripts/param.sh' file with proper paths and variables
 ```console
 # -----------------------------------------------------------
