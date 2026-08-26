@@ -57,3 +57,24 @@ Run the setup.sh script to create the proper directory structure and to move the
 cd $BASE_DIR/scripts
 ./setup.sh param.sh
 ```
+Search for the string 'set this appropriately' for locations that you need to edit.
+```console
+cd $BASE_DIR/scripts
+grep -r 'set this appropriately' .
+```
+Other than 'param.sh', which was covered above, make the following changes:
+```console
+# driver.sh
+datefnl = 2024051912                # Change to the final assimilation target date. In this example observations are assimilated at time steps 2024051906 and 2024051912.
+# gen_retro_icbc.sh
+datea = 2024051900                  # Set to the starting time. This is the beginning time of the ensemble spinup, which runs for 6 hours until the first assimilation time step at 2024051906.
+datefnl = 2024052000                # Set to the final time. This is the end of the forecast mode.
+paramfile = /full/path/to/param.sh  # Script sources information from param.sh file.
+# gen_pert_bank.sh
+datea = 2024051900                  # Set to the starting time.
+num_ens = 60 (automatically set)    # Total number of perturbation members. Automatically set to 3x model ensemble members (20).
+paramfile = /full/path/to/param.sh  # Script sources information from param.sh file.
+savedir = ${PERTS_DIR}/work/boundary_perts.  # Location of perturbation bank.
+# add_bank_pert.ncl
+bank_size = 60 (automatically set)  # Automatically set to 3x model ensemble members (20). If set manually it is recommended to set to the same value as gen_pert_bank.sh num_ens value. Cannot be greater than total perturbations in bank.
+```
