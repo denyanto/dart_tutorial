@@ -107,4 +107,10 @@ pert_bank_mem_02.nc
 ..
 pert_bank_mem_60.nc
 ```
-
+## Perform Ensemble Spinup
+Next, we generate an initial ensemble of WRF states to prepare for the first assimilation (analysis) step. We run the script init_ensemble_var.sh, which takes two arguments: a date string for the starting time and the path to the param.sh script.
+```console
+cd $BASE_DIR/scripts
+./init_ensemble_var.sh 2024051900 param.sh
+```
+When the scripts complete for the all ensemble members, you should find 20 new files for each domain (40 total files) in the directory '$BASE_DIR/output/2024051900/PRIORS' named prior_d01.0001, prior_d02.0001, etc.
