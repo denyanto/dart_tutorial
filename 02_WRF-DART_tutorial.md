@@ -79,6 +79,7 @@ savedir = ${PERTS_DIR}/work/boundary_perts.  # Location of perturbation bank.
 bank_size = 60 (automatically set)  # Automatically set to 3x model ensemble members (20). If set manually it is recommended to set to the same value as gen_pert_bank.sh num_ens value. Cannot be greater than total perturbations in bank.
 ```
 ## Create Initial and Boundary Conditions
+The namelist settings included within the 'namelist.input.meso' template. 
 ```console
 cd $BASE_DIR/scripts
 ./gen_retro_icbc.sh
@@ -92,3 +93,18 @@ wrfinput_d01_154636_21600_mean
 wrfinput_d02_154636_0_mean
 wrfinput_d02_154636_21600_mean
 ```
+## Generate Perturbation
+The spatial pattern and magnitude of the perturbations are controlled through the '&wrfvar7' 'cv_options', 'as1', 'as2', 'as3' and 'as4' namelist settings included within the 'namelist.input.3dvar' template.
+```console
+cd $BASE_DIR/scripts
+./gen_pert_bank.sh
+```
+The script will generate a batch job for each perturbation (60 total). The rule of thumb is to generate 3-4X as many perturbations as the model ensemble (20). This is done to increase the probability each ensemble member receives a unique perturbation. You should confirm the following files have been created within the '$PERTS_DIR/work/boundary_perts' directory:
+```console
+pert_bank_mem_01.nc
+pert_bank_mem_02.nc
+..
+..
+pert_bank_mem_60.nc
+```
+
