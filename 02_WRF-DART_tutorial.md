@@ -78,3 +78,9 @@ savedir = ${PERTS_DIR}/work/boundary_perts.  # Location of perturbation bank.
 # add_bank_pert.ncl
 bank_size = 60 (automatically set)  # Automatically set to 3x model ensemble members (20). If set manually it is recommended to set to the same value as gen_pert_bank.sh num_ens value. Cannot be greater than total perturbations in bank.
 ```
+## Create Initial and Boundary Conditions
+```console
+cd $BASE_DIR/scripts
+./gen_retro_icbc.sh
+```
+
