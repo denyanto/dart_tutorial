@@ -17,7 +17,8 @@ conda activate dart
 conda install -c conda-forge cmake make hdf5 curl zlib libcurl
 conda install -c conda-forge nco
 conda install -c conda-forge cdo
-conda install -c conda-forge ncl
+conda install -c conda-forge mamba
+mamba install -c conda-forge ncl
 ```
 
 
