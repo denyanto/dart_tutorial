@@ -74,7 +74,9 @@ cmake .. \
   -DBUILD_SHARED_LIBS=OFF \
   -DHDF5_BUILD_STATIC_LIBS=ON \
   -DHDF5_BUILD_TOOLS=OFF \
-  -DHDF5_ENABLE_Z_LIB_SUPPORT=ON
+  -DHDF5_ENABLE_Z_LIB_SUPPORT=ON \
+  -DZLIB_LIBRARY="$CONDA_PREFIX/lib/libz.so"  \
+  -DZLIB_INCLUDE_DIR="$CONDA_PREFIX/include"
 make -j$J #cmake --build . -j$J
 make install #cmake --install .
 cd ../..
