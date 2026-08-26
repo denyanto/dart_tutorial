@@ -83,4 +83,12 @@ bank_size = 60 (automatically set)  # Automatically set to 3x model ensemble mem
 cd $BASE_DIR/scripts
 ./gen_retro_icbc.sh
 ```
+Once the script completes, you should confirm the following files have been created within the '$BASE_DIR/output/2024051900' directory:
 
+```console
+wrfbdy_d01_154636_21600_mean
+wrfinput_d01_154636_0_mean
+wrfinput_d01_154636_21600_mean
+wrfinput_d02_154636_0_mean
+wrfinput_d02_154636_21600_mean
+```
