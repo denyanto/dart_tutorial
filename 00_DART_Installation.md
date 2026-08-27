@@ -18,8 +18,8 @@ conda create --name dart
 conda activate dart
 conda install -c conda-forge cmake make curl libcurl
 conda install -c conda-forge mamba
-conda install -c conda-forge nco
-conda install -c conda-forge cdo
+mamba install -n dart -c conda-forge nco
+mamba install -n dart -c conda-forge cdo
 mamba install -n dart -c conda-forge ncl
 ```
 
