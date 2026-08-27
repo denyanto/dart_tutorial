@@ -51,6 +51,7 @@ NC_F_VERSION=4.6.4
 HDF5_VERSION=2.0.0
 ZLIB_VERSION=1.3.2
 J=8
+export LD_LIBRARY_PATH=$INSTALL_DIR/lib:$LD_LIBRARY_PATH
 ```
 
 ## Build and Install zlib
