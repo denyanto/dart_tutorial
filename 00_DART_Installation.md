@@ -120,8 +120,10 @@ cmake .. \
   -DCMAKE_BUILD_TYPE=Release \
   -DBUILD_SHARED_LIBS=OFF \
   -DBUILD_STATIC_LIBS=ON \
-  -DNetCDF_ROOT=$INSTALL_DIR \
-  -DENABLE_TESTS=OFF
+  -DNETCDF_ROOT=$INSTALL_DIR \
+  -DENABLE_TESTS=OFF \
+  -DCMAKE_C_COMPILER=mpiicx \
+  -DCMAKE_Fortran_COMPILER=mpiifx
 cmake --build . -j$J
 cmake --install .
 cd ../..
