@@ -9,6 +9,7 @@ cd $HOME
 ml unload gnu13/13.2.0 openmpi5/5.0.3
 ml load oneapi/tbb/2022.2 oneapi/compiler-rt/2025.2.1 oneapi/umf/0.11.0 oneapi/compiler-intel-llvm/latest oneapi/mpi/2021.16
 ml save intel
+source /software/compilers/intel-oneapi/2025.2.1/setvars.sh
 ```
 
 ## Create conda environment **dart**
