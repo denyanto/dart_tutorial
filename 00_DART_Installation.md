@@ -48,7 +48,7 @@ mamba install -n dart -c conda-forge ncl
 INSTALL_DIR=$CONDA_PREFIX
 NC_C_VERSION=4.10.1
 NC_F_VERSION=4.6.4
-HDF5_VERSION=1.14.0
+HDF5_VERSION=2.0.0
 ZLIB_VERSION=1.3.2
 J=8
 ```
@@ -66,8 +66,8 @@ cd ..
 
 ## Build and Install hdf5
 ```console
-wget https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.14/hdf5-$HDF5_VERSION/src/hdf5-$HDF5_VERSION.tar.gz
-tar xzf hdf5-$HDF5_VERSION.tar.gz
+wget https://github.com/HDFGroup/hdf5/archive/refs/tags/$HDF5_VERSION.tar.gz
+tar xzf $HDF5_VERSION.tar.gz
 cd hdf5-$HDF5_VERSION
 mkdir build && cd build
 cmake .. \
