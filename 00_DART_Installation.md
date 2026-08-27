@@ -157,7 +157,7 @@ FC = ifx
 LD = ifx
 NETCDF = $CONDA_PREFIX
 INCS = -I$(NETCDF)/include
-LIBS = -L$(NETCDF)/lib -lnetcdf -lnetcdff
+LIBS = -L$(NETCDF)/lib -lnetcdf -lnetcdff -lhdf5_hl -lhdf5 -lz -lmpi
 FFLAGS = -O2 $(INCS)
 LDFLAGS = $(FFLAGS) $(LIBS)
 ```
