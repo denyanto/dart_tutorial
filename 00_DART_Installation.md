@@ -127,7 +127,9 @@ cmake .. \
   -DCMAKE_Fortran_COMPILER=mpiifx
 cmake --build . -j$J
 cmake --install .
-cd ../..
+cd $INSTALL_DIR/lib
+ln -sf $INSTALL_DIR/lib64/libnetcdf* .
+cd 
 ```
 
 ## Verify the Netcdf Installation
