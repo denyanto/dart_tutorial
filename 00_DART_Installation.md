@@ -17,9 +17,9 @@ source /software/compilers/intel-oneapi/2025.2.1/setvars.sh
 conda create --name dart
 conda activate dart
 conda install -c conda-forge cmake make curl libcurl
+conda install -c conda-forge mamba
 conda install -c conda-forge nco
 conda install -c conda-forge cdo
-conda install -c conda-forge mamba
 mamba install -n dart -c conda-forge ncl
 ```
 
