@@ -72,13 +72,16 @@ cd hdf5-$HDF5_VERSION
 mkdir build && cd build
 cmake .. \
   -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR \
+  -DCMAKE_C_COMPILER=mpiicx \
+  -DCMAKE_Fortran_COMPILER=mpiifx \
+  -DHDF5_ENABLE_PARALLEL=ON \
   -DCMAKE_BUILD_TYPE=Release \
   -DBUILD_SHARED_LIBS=OFF \
   -DBUILD_STATIC_LIBS=ON \
   -DHDF5_BUILD_TOOLS=OFF \
   -DHDF5_ENABLE_Z_LIB_SUPPORT=ON \
-  -DZLIB_LIBRARY="$CONDA_PREFIX/lib/libz.so"  \
-  -DZLIB_INCLUDE_DIR="$CONDA_PREFIX/include"
+  -DZLIB_LIBRARY="$INSTALL_DIR/lib/libz.so"  \
+  -DZLIB_INCLUDE_DIR="$INSTALL_DIR/include"
 cmake --build . -j$J
 cmake --install .
 cd ../..
