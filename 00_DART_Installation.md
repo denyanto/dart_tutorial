@@ -6,6 +6,7 @@ These are some installation notes taken in the process of installing DART. This 
 ## Module load and save as intel module
 ```console
 cd $HOME
+ml unload gnu13/13.2.0 openmpi5/5.0.3
 ml load oneapi/tbb/2022.2 oneapi/compiler-rt/2025.2.1 oneapi/umf/0.11.0 oneapi/compiler-intel-llvm/latest oneapi/mpi/2021.16
 ml save intel
 ```
@@ -14,7 +15,7 @@ ml save intel
 ```console
 conda create --name dart
 conda activate dart
-conda install -c conda-forge cmake make hdf5 curl zlib libcurl
+conda install -c conda-forge cmake make curl libcurl
 conda install -c conda-forge nco
 conda install -c conda-forge cdo
 conda install -c conda-forge mamba
@@ -77,8 +78,8 @@ cmake .. \
   -DHDF5_ENABLE_Z_LIB_SUPPORT=ON \
   -DZLIB_LIBRARY="$CONDA_PREFIX/lib/libz.so"  \
   -DZLIB_INCLUDE_DIR="$CONDA_PREFIX/include"
-make -j$J #cmake --build . -j$J
-make install #cmake --install .
+cmake --build . -j$J
+cmake --install .
 cd ../..
 ```
 
@@ -96,8 +97,8 @@ cmake .. \
   -DBUILD_SHARED_LIBS=OFF \
   -DBUILD_STATIC_LIBS=ON \
   -DHDF5_ROOT=$INSTALL_DIR
-make -j$J #cmake --build . -j$J
-make install #cmake --install .
+cmake --build . -j$J
+cmake --install .
 cd ../..
 ```
 
