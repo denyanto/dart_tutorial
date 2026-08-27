@@ -12,6 +12,25 @@ ml save intel
 source /software/compilers/intel-oneapi/2025.2.1/setvars.sh
 ```
 
+## Activate and load Intel oneAPI Compilers
+```console
+# Activate Intel oneAPI Compilers
+ml restore intel
+
+# Verify the compilers are active in your session
+icx --version
+ifx --version
+
+# Load Intel oneAPI Compilers
+export CC=icx
+export CXX=icpx
+export FC=ifx
+export F77=ifx
+export CFLAGS="-O2 -march=native"
+export CXXFLAGS="-O2 -march=native"
+export FCFLAGS="-O2 -march=native"
+```
+
 ## Create conda environment **dart**
 ```console
 conda create --name dart
@@ -32,25 +51,6 @@ NC_F_VERSION=4.6.4
 HDF5_VERSION=1.14.0
 ZLIB_VERSION=1.3.2
 J=8
-```
-
-## Activate and load Intel oneAPI Compilers
-```console
-# Activate Intel oneAPI Compilers
-ml restore intel
-
-# Verify the compilers are active in your session
-icx --version
-ifx --version
-
-# Load Intel oneAPI Compilers
-export CC=icx
-export CXX=icpx
-export FC=ifx
-export F77=ifx
-export CFLAGS="-O2 -march=native"
-export CXXFLAGS="-O2 -march=native"
-export FCFLAGS="-O2 -march=native"
 ```
 
 ## Build and Install zlib
