@@ -86,13 +86,13 @@ This build of WRF will use classic (non-compressed) NETCDF format
 Edit configure.wrf 
 ```console
  LIB_EXTERNAL    = \
-                      -L$(WRF_SRC_ROOT_DIR)/external/io_netcdf -lwrfio_nf -L/home/danang-eko/.conda/envs/dart/lib -lnetcdff -lnetcdf
+                      -L$(WRF_SRC_ROOT_DIR)/external/io_netcdf -lwrfio_nf -L$NETCDF/lib -lnetcdff -lnetcdf
 ```
 
 with 
 ```console
  LIB_EXTERNAL    = \
-                      -L$(WRF_SRC_ROOT_DIR)/external/io_netcdf -lwrfio_nf -L/home/danang-eko/.conda/envs/dart/lib -lnetcdff -lnetcdf -lhdf5_hl -lhdf5
+                      -L$(WRF_SRC_ROOT_DIR)/external/io_netcdf -lwrfio_nf -L$NETCDF/lib -lnetcdff -lnetcdf -lhdf5_hl -lhdf5
 ```
 
 For this purpose we are going to compile WRF. Compilation should take about 20-30 minutes. The ongoing compilation can be checked.
@@ -288,13 +288,13 @@ This build of WRF will use classic (non-compressed) NETCDF format
 Edit configure.wrf 
 ```console
  LIB_EXTERNAL    = \
-                      -L$(WRF_SRC_ROOT_DIR)/external/io_netcdf -lwrfio_nf -L/home/danang-eko/.conda/envs/dart/lib -lnetcdff -lnetcdf
+                      -L$(WRF_SRC_ROOT_DIR)/external/io_netcdf -lwrfio_nf -L$NETCDF/lib -lnetcdff -lnetcdf
 ```
 
 with 
 ```console
  LIB_EXTERNAL    = \
-                      -L$(WRF_SRC_ROOT_DIR)/external/io_netcdf -lwrfio_nf -L/home/danang-eko/.conda/envs/dart/lib -lnetcdff -lnetcdf -lhdf5_hl -lhdf5
+                      -L$(WRF_SRC_ROOT_DIR)/external/io_netcdf -lwrfio_nf -L$NETCDF/lib -lnetcdff -lnetcdf -lhdf5_hl -lhdf5
 ```
 
 For this purpose we are going to compile WRF. Compilation should take about 20-30 minutes. The ongoing compilation can be checked.
