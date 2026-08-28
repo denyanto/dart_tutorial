@@ -114,3 +114,11 @@ cd $BASE_DIR/scripts
 ./init_ensemble_var.sh 2024051900 param.sh
 ```
 When the scripts complete for the all ensemble members, you should find 20 new files for each domain (40 total files) in the directory '$BASE_DIR/output/2024051900/PRIORS' named prior_d01.0001, prior_d02.0001, etc.
+## Observation Converter
+
+## Perform the Assimilation
+The 'driver.sh' script accomplishes this through a series of scripts that 1) assimilates observations using the DART filter, 2) calculates observation space diagnostics for that assimilation time step, and 3) advances the WRF ensemble members to the next assimilation time step.
+```console
+cd $BASE_DIR/scripts
+./driver.sh 2024051906 param.sh >& run.out &
+```
