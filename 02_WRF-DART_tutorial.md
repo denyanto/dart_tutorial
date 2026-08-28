@@ -116,6 +116,33 @@ cd $BASE_DIR/scripts
 When the scripts complete for the all ensemble members, you should find 20 new files for each domain (40 total files) in the directory '$BASE_DIR/output/2024051900/PRIORS' named prior_d01.0001, prior_d02.0001, etc.
 ## Observation Converter
 
+## Create the First Set of Inflation Files
+The initial adaptive inflation files will be used by DART to control how the ensemble is inflated (increases spread) during the first assimilation cycle. Within the '$BASE_DIR/rundir' directory, the 'input.nml' file has settings that control the behavior of 'fill_inflation_restart'. Within this file there is the section:
+```console
+&fill_inflation_restart_nml
+   write_prior_inf = .true.
+   prior_inf_mean  = 1.00
+   prior_inf_sd    = 0.6
+
+   write_post_inf  = .false.
+   post_inf_mean   = 1.00
+   post_inf_sd     = 0.6
+
+   input_state_files = 'wrfinput_d01','wrfinput_d02'
+   single_file       = .false.
+   verbose           = .false.
+   /
+```
+Run the following commands:
+```console
+datea=2024051900
+cd $BASE_DIR/rundir
+cp ../output/$datea/wrfinput_d01_154636_0_mean ./wrfinput_d01
+cp ../output/$datea/wrfinput_d02_154636_0_mean ./wrfinput_d02
+./fill_inflation_restart
+mkdir ../output/$datea/Inflation_input
+mv input_priorinf_*.nc ../output/$datea/Inflation_input/
+```
 ## Perform the Assimilation
 The 'driver.sh' script accomplishes this through a series of scripts that 1) assimilates observations using the DART filter, 2) calculates observation space diagnostics for that assimilation time step, and 3) advances the WRF ensemble members to the next assimilation time step.
 ```console
