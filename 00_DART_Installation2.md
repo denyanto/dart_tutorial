@@ -61,7 +61,7 @@ cd hdf5-$HDF5_VERSION
 mkdir build && cd build
 cmake .. \
   -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR \
-  -DCMAKE_AR=/opt/software/intel/oneapi/compiler/2022.0.1/linux/bin-llvm/llvm-ar \
+  -DCMAKE_AR=/opt/software/intel/oneapi/compiler/2022.0.2/linux/bin-llvm/llvm-ar \
   -DHDF5_ENABLE_PARALLEL=ON \
   -DCMAKE_BUILD_TYPE=Release \
   -DBUILD_SHARED_LIBS=ON \
