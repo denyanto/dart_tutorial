@@ -21,13 +21,14 @@ icx --version
 ifx --version
 
 # Load Intel oneAPI Compilers
-setenv CC icc
-setenv CXX icpc
-setenv FC ifort
-setenv F77 ifort
-setenv CFLAGS "-O2 -march=native"
-setenv CXXFLAGS "-O2 -march=native"
-setenv FCFLAGS "-O2 -march=native"
+bash
+export CC=icc
+export CXX=icpc
+export FC=ifort
+export F77=ifort
+export CFLAGS="-O2 -march=native"
+export CXXFLAGS="-O2 -march=native"
+export FCFLAGS="-O2 -march=native"
 ```
 
 ## Setting install location and library version
@@ -38,7 +39,7 @@ NC_F_VERSION=4.6.4
 HDF5_VERSION=2.0.0
 ZLIB_VERSION=1.3.2
 J=8
-setenv LD_LIBRARY_PATH $INSTALL_DIR/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$INSTALL_DIR/lib:$LD_LIBRARY_PATH
 ```
 
 ## Build and Install zlib
