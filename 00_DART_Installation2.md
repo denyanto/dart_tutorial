@@ -26,9 +26,9 @@ export CC=icc
 export CXX=icpc
 export FC=ifort
 export F77=ifort
-export CFLAGS="-O2 -march=native"
-export CXXFLAGS="-O2 -march=native"
-export FCFLAGS="-O2 -march=native"
+export CFLAGS="-O2"
+export CXXFLAGS="-O2"
+export FCFLAGS="-O2"
 ```
 
 ## Setting install location and library version
