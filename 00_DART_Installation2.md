@@ -86,6 +86,8 @@ cd netcdf-c-$NC_C_VERSION
 mkdir build && cd build
 cmake .. \
   -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR \
+  -DCMAKE_AR=/opt/software/intel/oneapi/compiler/2022.0.2/linux/bin-llvm/llvm-ar \
+  -DCMAKE_RANLIB=/opt/software/intel/oneapi/compiler/2022.0.2/linux/bin-llvm/llvm-ranlib \
   -DCMAKE_BUILD_TYPE=Release \
   -DNETCDF_ENABLE_DAP=OFF \
   -DBUILD_SHARED_LIBS=OFF \
