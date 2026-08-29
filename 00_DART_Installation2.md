@@ -6,15 +6,14 @@ These are some installation notes taken in the process of installing DART. This 
 ## Module load and save as intel module
 ```console
 cd $HOME
-ml unload gnu13/13.2.0 openmpi5/5.0.3
-ml load oneapi/tbb/2022.2 oneapi/compiler-rt/2025.2.1 oneapi/umf/0.11.0 oneapi/compiler-intel-llvm/latest oneapi/mpi/2021.16
+ml compiler-rt/latest icc/latest mpi/2021.5.1
 ml save intel
 ```
 
 ## Activate and load Intel oneAPI Compilers
 ```console
 # Activate Intel oneAPI Compilers
-source /software/compilers/intel-oneapi/2025.2.1/setvars.sh
+source /opt/software/intel/oneapi/setvars.sh
 ml restore intel
 
 # Verify the compilers are active in your session
@@ -22,30 +21,18 @@ icx --version
 ifx --version
 
 # Load Intel oneAPI Compilers
-export CC=icx
-export CXX=icpx
-export FC=ifx
-export F77=ifx
+export CC=icc
+export CXX=icpc
+export FC=ifort
+export F77=ifort
 export CFLAGS="-O2 -march=native"
 export CXXFLAGS="-O2 -march=native"
 export FCFLAGS="-O2 -march=native"
 ```
 
-## Create conda environment **dart**
-```console
-conda create --name dart
-conda activate dart
-conda install -c conda-forge cmake make curl libcurl
-conda install -c conda-forge mamba
-mamba install -n dart -c conda-forge nco
-mamba install -n dart -c conda-forge cdo
-mamba install -n dart -c conda-forge ncl
-```
-
-
 ## Setting install location and library version
 ```console
-INSTALL_DIR=$CONDA_PREFIX
+INSTALL_DIR=/home/ens_t1/.libs
 NC_C_VERSION=4.10.1
 NC_F_VERSION=4.6.4
 HDF5_VERSION=2.0.0
@@ -160,6 +147,17 @@ INCS = -I$(NETCDF)/include
 LIBS = -L$(NETCDF)/lib -lnetcdf -lnetcdff -lhdf5_hl -lhdf5 -lz -lmpi
 FFLAGS = -O2 $(INCS)
 LDFLAGS = $(FFLAGS) $(LIBS)
+```
+
+## Create conda environment **dart**
+```console
+conda create --name dart
+conda activate dart
+conda install -c conda-forge cmake make curl libcurl
+conda install -c conda-forge mamba
+mamba install -n dart -c conda-forge nco
+mamba install -n dart -c conda-forge cdo
+mamba install -n dart -c conda-forge ncl
 ```
 
 Build and test DART 
