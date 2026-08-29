@@ -1,4 +1,4 @@
-# DART Configure on HPC MMS
+# DART Configure on HPC TUNA-MMS
 Configuration of DART on HPC
 
 These are some installation notes taken in the process of installing DART. This tutorial is for **free**
