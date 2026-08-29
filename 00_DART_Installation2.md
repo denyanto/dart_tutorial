@@ -6,7 +6,7 @@ These are some installation notes taken in the process of installing DART. This 
 ## Module load and save as intel module
 ```console
 cd $HOME
-ml compiler-rt/latest icc/latest mpi/2021.5.1
+ml compiler/latest mpi/latest
 ml save intel
 ```
 
