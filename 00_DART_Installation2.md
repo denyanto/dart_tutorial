@@ -88,6 +88,7 @@ cmake .. \
   -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR \
   -DCMAKE_AR=/opt/software/intel/oneapi/compiler/2022.0.2/linux/bin-llvm/llvm-ar \
   -DCMAKE_RANLIB=/opt/software/intel/oneapi/compiler/2022.0.2/linux/bin-llvm/llvm-ranlib \
+  -DCMAKE_PREFIX_PATH=/opt/software/intel/oneapi/intelpython/python3.9/pkgs/tbb4py-2021.5.1-py39_intel_738/lib \
   -DCMAKE_BUILD_TYPE=Release \
   -DNETCDF_ENABLE_DAP=OFF \
   -DBUILD_SHARED_LIBS=OFF \
@@ -96,7 +97,7 @@ cmake .. \
   -DZLIB_ROOT=$INSTALL_DIR \
   -DNETCDF_ENABLE_HDF5=ON \
   -DNETCDF_ENABLE_PARALLEL4=ON \
-  -DENABLE_TESTS=OFF
+  -DNETCDF_ENABLE_TESTS=OFF
 cmake --build . -j$J
 cmake --install .
 cd ../..
