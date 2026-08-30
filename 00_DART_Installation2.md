@@ -19,7 +19,7 @@ which nc-config
 cd $HOME/apps
 git clone https://github.com/NCAR/DART.git
 cd DART
-cp build_templates/mkmf.template.ifx.linux build_templates/mkmf.template
+cp build_templates/mkmf.template.intel.linux build_templates/mkmf.template
 ```
 
 Edit in the build_templates/mkmf.template file
