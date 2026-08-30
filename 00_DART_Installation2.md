@@ -13,6 +13,7 @@ ml save intel
 ## Activate and load Intel oneAPI Compilers
 ```console
 # Activate Intel oneAPI Compilers
+bash
 source /opt/software/intel/oneapi/setvars.sh
 ml restore intel
 
@@ -21,7 +22,6 @@ icc --version
 ifort --version
 
 # Load Intel oneAPI Compilers
-bash
 export CC=icc
 export CXX=icpc
 export FC=ifort
