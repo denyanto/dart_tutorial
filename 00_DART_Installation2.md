@@ -17,8 +17,8 @@ source /opt/software/intel/oneapi/setvars.sh
 ml restore intel
 
 # Verify the compilers are active in your session
-icx --version
-ifx --version
+icc --version
+ifort --version
 
 # Load Intel oneAPI Compilers
 bash
