@@ -85,6 +85,11 @@ tar xzf v$NC_C_VERSION.tar.gz
 cd netcdf-c-$NC_C_VERSION
 mkdir build && cd build
 export HDF5_ROOT=$INSTALL_DIR
+export PATH=$HDF5_ROOT/bin:$PATH
+export CPATH=$HDF5_ROOT/include
+export LIBRARY_PATH=$HDF5_ROOT/lib
+export LD_LIBRARY_PATH=$HDF5_ROOT/lib:${LD_LIBRARY_PATH}
+export PKG_CONFIG_PATH=$HDF5_ROOT/lib/pkgconfig:${PKG_CONFIG_PATH}
 export CPPFLAGS="-I${HDF5_ROOT}/include"
 export LDFLAGS="-L${HDF5_ROOT}/lib -Wl,-rpath,${HDF5_ROOT}/lib"
 cmake .. \
