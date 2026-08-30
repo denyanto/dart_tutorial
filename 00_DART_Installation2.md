@@ -16,7 +16,7 @@ which nc-config
 
 ## Downloading DART
 ```console
-cd $HOME
+cd $HOME/apps
 git clone https://github.com/NCAR/DART.git
 cd DART
 cp build_templates/mkmf.template.ifx.linux build_templates/mkmf.template
