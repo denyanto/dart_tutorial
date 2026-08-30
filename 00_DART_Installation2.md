@@ -97,6 +97,8 @@ cmake .. \
   -DCMAKE_AR=/opt/software/intel/oneapi/compiler/2022.0.2/linux/bin-llvm/llvm-ar \
   -DCMAKE_RANLIB=/opt/software/intel/oneapi/compiler/2022.0.2/linux/bin-llvm/llvm-ranlib \
   -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_C_COMPILER=mpiicc \
+  -DCMAKE_C_FLAGS="-I$INSTALL_DIR/include" \
   -DNETCDF_ENABLE_DAP=OFF \
   -DBUILD_SHARED_LIBS=OFF \
   -DBUILD_STATIC_LIBS=ON \
