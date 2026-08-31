@@ -103,6 +103,7 @@ cmake .. \
   -DNETCDF_ENABLE_TESTS=OFF
 cmake --build . -j$J
 cmake --install .
+ln -sf $INSTALL_DIR/lib64/libnetcdf.* $INSTALL_DIR/lib
 cd ../..
 ```
 
