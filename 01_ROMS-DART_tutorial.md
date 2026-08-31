@@ -91,8 +91,9 @@ ls -d /scratch/m2p3_inacawo_ens/inaCAWO_DA_inputs/ARVOR-I/20260829/* > obs_files
 ./arvor_to_obs
 ```
 The resulting observation sequence file will be written to “obs_seq.arvor”
-### ARVOR Data Processing
+### HF Radar Data Processing
 ```console
+export LD_LIBRARY_PATH=/usr/lib64:$LD_LIBRARY_PATH
 cd /scratch/inanwp/dart-work
 mkdir hf
 cd hf
