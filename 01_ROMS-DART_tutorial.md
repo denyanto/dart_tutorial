@@ -106,6 +106,23 @@ cp $DART/observations/obs_converters/HFradar/work/input.nml .
 ls -d /scratch/m2p3_inacawo_ens/inaCAWO_DA_inputs/HF_RADAR/CODAR/20260829/* > obs_files.txt
 ./hf_to_obs
 ```
+If the following error occurs:
+```console
+Output file: obs_seq.hf exists. Replacing it ...
+forrtl: severe (41): insufficient virtual memory
+Image              PC                Routine            Line        Source
+hf_to_obs          000000000077EE85  Unknown               Unknown  Unknown
+hf_to_obs          000000000057168D  Unknown               Unknown  Unknown
+hf_to_obs          00000000004BD4F4  Unknown               Unknown  Unknown
+hf_to_obs          000000000040A622  Unknown               Unknown  Unknown
+libc-2.28.so       000014A36338B865  __libc_start_main     Unknown  Unknown
+hf_to_obs          000000000040A52E  Unknown               Unknown  Unknown
+```
+Reduce the number of files to be read. Execute the following command:
+```console
+head -1000 obs_files.txt > obs_files.txt
+./hf_to_obs
+```
 The resulting observation sequence file will be written to “obs_seq.hf”
 
 
