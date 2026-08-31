@@ -45,6 +45,7 @@ export LD_LIBRARY_PATH=$INSTALL_DIR/lib:$LD_LIBRARY_PATH
 
 ## Build and Install zlib
 ```console
+cd $HOME/misc
 wget https://zlib.net/zlib-$ZLIB_VERSION.tar.gz
 tar xzf zlib-$ZLIB_VERSION.tar.gz
 cd zlib-$ZLIB_VERSION
@@ -56,6 +57,7 @@ cd ..
 
 ## Build and Install hdf5
 ```console
+cd $HOME/misc
 wget https://github.com/HDFGroup/hdf5/archive/refs/tags/$HDF5_VERSION.tar.gz
 tar xzf $HDF5_VERSION.tar.gz
 cd hdf5-$HDF5_VERSION
@@ -84,6 +86,7 @@ cd ../..
 
 ## Build and Install netcdf-c
 ```console
+cd $HOME/misc
 wget https://github.com/Unidata/netcdf-c/archive/refs/tags/v$NC_C_VERSION.tar.gz
 tar xzf v$NC_C_VERSION.tar.gz
 cd netcdf-c-$NC_C_VERSION
@@ -109,6 +112,7 @@ cd ../..
 
 ## Build and Install netcdf-fortran
 ```console
+cd $HOME/misc
 wget https://github.com/Unidata/netcdf-fortran/archive/refs/tags/v$NC_F_VERSION.tar.gz
 tar xzf v$NC_F_VERSION.tar.gz
 cd netcdf-fortran-$NC_F_VERSION
@@ -144,7 +148,7 @@ which nc-config
 
 ## Downloading DART
 ```console
-cd $HOME/apps
+cd $HOME/misc
 git clone https://github.com/NCAR/DART.git
 cd DART
 cp build_templates/mkmf.template.intel.linux build_templates/mkmf.template
