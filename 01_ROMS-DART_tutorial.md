@@ -73,5 +73,38 @@ ln -sf $DART/observations/obs_converters/SVP/work/svp_to_obs .
 ln -sf $DART/observations/obs_converters/SVP/work/preprocess .
 cp $DART/observations/obs_converters/SVP/work/input.nml .
 ls -d /scratch/m2p3_inacawo_ens/inaCAWO_DA_inputs/SVP/20260829/* > obs_files.txt
+./svp_to_obs
 ```
+The resulting observation sequence file will be written to “obs_seq.svp”
+### ARVOR Data Processing
+```console
+cd /scratch/inanwp/dart-work
+mkdir arvor
+cd arvor
+ln -sf $DART/observations/obs_converters/ARVOR/work/advance_time  .
+ln -sf $DART/observations/obs_converters/ARVOR/work/obs_seq_to_netcdf  .
+ln -sf $DART/observations/obs_converters/ARVOR/work/obs_sequence_tool  .
+ln -sf $DART/observations/obs_converters/ARVOR/work/arvor_to_obs .
+ln -sf $DART/observations/obs_converters/ARVOR/work/preprocess .
+cp $DART/observations/obs_converters/ARVOR/work/input.nml .
+ls -d /scratch/m2p3_inacawo_ens/inaCAWO_DA_inputs/ARVOR-I/20260829/* > obs_files.txt
+./arvor_to_obs
+```
+The resulting observation sequence file will be written to “obs_seq.arvor”
+### ARVOR Data Processing
+```console
+cd /scratch/inanwp/dart-work
+mkdir hf
+cd hf
+ln -sf $DART/observations/obs_converters/HFradar/work/advance_time  .
+ln -sf $DART/observations/obs_converters/HFradar/work/obs_seq_to_netcdf  .
+ln -sf $DART/observations/obs_converters/HFradar/work/obs_sequence_tool  .
+ln -sf $DART/observations/obs_converters/HFradar/work/hf_to_obs .
+ln -sf $DART/observations/obs_converters/HFradar/work/preprocess .
+cp $DART/observations/obs_converters/HFradar/work/input.nml .
+ls -d /scratch/m2p3_inacawo_ens/inaCAWO_DA_inputs/HF_RADAR/CODAR/20260829/* > obs_files.txt
+./hf_to_obs
+```
+The resulting observation sequence file will be written to “obs_seq.hf”
+
 
