@@ -20,10 +20,10 @@ icc --version
 ifort --version
 
 # Load Intel oneAPI Compilers
-export CC=icx
-export CXX=icpx
-export FC=ifx
-export F77=ifx
+export CC=icc
+export CXX=icpc
+export FC=ifort
+export F77=ifort
 export CFLAGS="-O2"
 export CXXFLAGS="-O2"
 export FCFLAGS="-O2"
