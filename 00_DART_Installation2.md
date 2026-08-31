@@ -133,6 +133,7 @@ cd ../..
 
 ## Verify the Netcdf Installation
 ```console
+export PATH=/home/inanwp/.libs/bin:$PATH
 # Check the C configuration tool
 nc-config --cc
 
@@ -151,13 +152,13 @@ cp build_templates/mkmf.template.intel.linux build_templates/mkmf.template
 
 Edit in the build_templates/mkmf.template file
 ```console
-MPIFC = mpiifx
-MPILD = mpiifx
-FC = ifx
-LD = ifx
-NETCDF = $CONDA_PREFIX
+MPIFC = mpiifort
+MPILD = mpiifort
+FC = ifort
+LD = ifort
+NETCDF = $INSTALL_DIR
 INCS = -I$(NETCDF)/include
-LIBS = -L$(NETCDF)/lib -lnetcdf -lnetcdff -lhdf5_hl -lhdf5 -lz -lmpi
+LIBS = -L$(NETCDF)/lib -lnetcdf -lnetcdff -lhdf5_hl -lhdf5 -lz 
 FFLAGS = -O2 $(INCS)
 LDFLAGS = $(FFLAGS) $(LIBS)
 ```
