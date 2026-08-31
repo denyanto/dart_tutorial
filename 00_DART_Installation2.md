@@ -169,8 +169,70 @@ LDFLAGS = $(FFLAGS) $(LIBS)
 
 Build and test DART 
 ```console
-cd models/lorenz_63/work
+cd $HOME/misc/DART/models/lorenz_63/work
 ./quickbuild.sh
+```
+
+## Build and Install ROMS-DART
+### Ocean Observation I - Drifters – Surface Velocity Program (SVP)
+```console
+cd $HOME/misc/DART/observations/obs_converters/SVP/work
+./quickbuild.sh
+```
+This would generate 4 programs:
+```console
+advance_time
+obs_seq_to_netcdf
+obs_sequence_tool
+svp_to_obs
+```
+### Ocean Observation I - Floats – in-situ profiles of T and S (ARVOR)
+```console
+cd $HOME/misc/DART/observations/obs_converters/ARVOR/work
+./quickbuild.sh
+```
+This would generate 4 programs:
+```console
+advance_time
+obs_seq_to_netcdf
+obs_sequence_tool
+arvor_to_obs
+```
+### Ocean Observation I - High Frequency radar (HF Radar)
+```console
+cd $HOME/misc/DART/observations/obs_converters/HFradar/work
+./quickbuild.sh
+```
+This would generate 4 programs:
+```console
+advance_time
+obs_seq_to_netcdf
+obs_sequence_tool
+hf_to_obs
+```
+### Ocean Observation II - Copernicus Marine Environment Monitoring Service (CMEMS) Level-3S blended SST (Satellite SST)
+```console
+cd $HOME/misc/DART/observations/obs_converters/cmems_sst_l3s/work
+./quickbuild.sh
+```
+This would generate 4 programs:
+```console
+advance_time
+obs_seq_to_netcdf
+obs_sequence_tool
+cmems_sst_to_obs
+```
+### Ocean Observation II - CMEMS Level-3 Near-Real-Time along-track SSH (Satellite SSH)
+```console
+cd $HOME/misc/DART/observations/obs_converters/cmems_ssh_l3/work
+./quickbuild.sh
+```
+This would generate 4 programs:
+```console
+advance_time
+obs_seq_to_netcdf
+obs_sequence_tool
+cmems_ssh_to_obs
 ```
 
 ## Create conda environment **dart**
