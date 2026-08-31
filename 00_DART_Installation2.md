@@ -126,9 +126,8 @@ cmake .. \
   -DCMAKE_Fortran_COMPILER=mpiifort
 cmake --build . -j$J
 cmake --install .
-cd $INSTALL_DIR/lib
-ln -sf $INSTALL_DIR/lib64/libnetcdf* .
-cd 
+ln -sf $INSTALL_DIR/lib64/libnetcdff.* $INSTALL_DIR/lib
+cd ../..
 ```
 
 
