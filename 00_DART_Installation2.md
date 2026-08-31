@@ -3,6 +3,32 @@ Configuration of DART on HPC
 
 These are some installation notes taken in the process of installing DART on HPC TUNA-MMS using ROME. This tutorial is for **free**
 
+## Module load and save as intel module
+```console
+cd $HOME
+ml load mpi compiler
+ml save intel
+```
+
+## Activate and load Intel oneAPI Compilers
+```console
+# Activate Intel oneAPI Compilers
+ml restore intel
+
+# Verify the compilers are active in your session
+icc --version
+ifort --version
+
+# Load Intel oneAPI Compilers
+export CC=icx
+export CXX=icpx
+export FC=ifx
+export F77=ifx
+export CFLAGS="-O2"
+export CXXFLAGS="-O2"
+export FCFLAGS="-O2"
+```
+
 
 ## Verify the Netcdf Installation
 ```console
