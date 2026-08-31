@@ -108,7 +108,7 @@ ls -d /scratch/m2p3_inacawo_ens/inaCAWO_DA_inputs/HF_RADAR/CODAR/20260829/* > ob
 ```
 If the following error occurs:
 ```console
-Output file: obs_seq.hf exists. Replacing it ...
+Creating "obs_seq.hf" file.
 forrtl: severe (41): insufficient virtual memory
 Image              PC                Routine            Line        Source
 hf_to_obs          000000000077EE85  Unknown               Unknown  Unknown
