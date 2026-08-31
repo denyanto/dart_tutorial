@@ -29,9 +29,6 @@ export CXXFLAGS="-O2"
 export FCFLAGS="-O2"
 export AR=/opt/software/intel/oneapi/compiler/2022.0.2/linux/bin-llvm/llvm-ar
 export RANLIB=/opt/software/intel/oneapi/compiler/2022.0.2/linux/bin-llvm/llvm-ranlib
-export HDF5_ROOT=$INSTALL_DIR
-export CPPFLAGS="-I${HDF5_ROOT}/include"
-export LDFLAGS="-L${HDF5_ROOT}/lib -Wl,-rpath,${HDF5_ROOT}/lib"
 ```
 
 
