@@ -162,9 +162,15 @@ FC = ifort
 LD = ifort
 NETCDF = $INSTALL_DIR
 INCS = -I$(NETCDF)/include
-LIBS = -L$(NETCDF)/lib -lnetcdf -lnetcdff -lhdf5_hl -lhdf5 -lz 
+LIBS = -L$(NETCDF)/lib -lnetcdf -lnetcdff  
 FFLAGS = -O2 $(INCS)
 LDFLAGS = $(FFLAGS) $(LIBS)
+```
+
+Build and test DART 
+```console
+cd models/lorenz_63/work
+./quickbuild.sh
 ```
 
 ## Create conda environment **dart**
@@ -176,10 +182,4 @@ conda install -c conda-forge mamba
 mamba install -n dart -c conda-forge nco
 mamba install -n dart -c conda-forge cdo
 mamba install -n dart -c conda-forge ncl
-```
-
-Build and test DART 
-```console
-cd models/lorenz_63/work
-./quickbuild.sh
 ```
