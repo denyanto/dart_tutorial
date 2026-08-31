@@ -27,6 +27,11 @@ export F77=ifort
 export CFLAGS="-O2"
 export CXXFLAGS="-O2"
 export FCFLAGS="-O2"
+export AR=/opt/software/intel/oneapi/compiler/2022.0.2/linux/bin-llvm/llvm-ar
+export RANLIB=/opt/software/intel/oneapi/compiler/2022.0.2/linux/bin-llvm/llvm-ranlib
+export HDF5_ROOT=$INSTALL_DIR
+export CPPFLAGS="-I${HDF5_ROOT}/include"
+export LDFLAGS="-L${HDF5_ROOT}/lib -Wl,-rpath,${HDF5_ROOT}/lib"
 ```
 
 
@@ -58,6 +63,17 @@ wget https://github.com/HDFGroup/hdf5/archive/refs/tags/$HDF5_VERSION.tar.gz
 tar xzf $HDF5_VERSION.tar.gz
 cd hdf5-$HDF5_VERSION
 mkdir build && cd build
+export HDF5_ROOT=$INSTALL_DIR
+export CPPFLAGS="-I${HDF5_ROOT}/include"
+export LDFLAGS="-L${HDF5_ROOT}/lib -Wl,-rpath,${HDF5_ROOT}/lib"
+cmake .. \
+  -G "Unix Makefiles" \
+  -DCMAKE_MAKE_PROGRAM=/usr/bin/gmake \
+  -DCMAKE_C_COMPILER=$CC \
+  -DCMAKE_AR=$AR \
+  -DCMAKE_RANLIB=$RANLIB \
+  -DHDF5_ROOT=$HDF5_ROOT \
+  -DCMAKE_PREFIX_PATH=$HDF5_ROOT
 cmake .. \
   -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR \
   -DHDF5_ENABLE_PARALLEL=ON \
