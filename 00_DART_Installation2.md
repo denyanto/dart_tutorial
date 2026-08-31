@@ -64,6 +64,7 @@ export HDF5_ROOT=$INSTALL_DIR
 export CPPFLAGS="-I${HDF5_ROOT}/include"
 export LDFLAGS="-L${HDF5_ROOT}/lib -Wl,-rpath,${HDF5_ROOT}/lib"
 cmake .. \
+  -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR \
   -G "Unix Makefiles" \
   -DCMAKE_MAKE_PROGRAM=/usr/bin/gmake \
   -DCMAKE_C_COMPILER=$CC \
