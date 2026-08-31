@@ -120,8 +120,8 @@ cmake .. \
   -DBUILD_STATIC_LIBS=ON \
   -DNETCDF_ROOT=$INSTALL_DIR \
   -DENABLE_TESTS=OFF \
-  -DCMAKE_C_COMPILER=mpiicx \
-  -DCMAKE_Fortran_COMPILER=mpiifx
+  -DCMAKE_C_COMPILER=mpiicc \
+  -DCMAKE_Fortran_COMPILER=mpiifort
 cmake --build . -j$J
 cmake --install .
 cd $INSTALL_DIR/lib
