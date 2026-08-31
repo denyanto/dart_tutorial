@@ -67,7 +67,11 @@ cd /scratch/inanwp/dart-work
 mkdir svp
 cd svp
 ln -sf $DART/observations/obs_converters/SVP/work/advance_time  .
-ln -sf $DART/observations/obs_converters/SVP/work/svp_ssh_to_obs .
+ln -sf $DART/observations/obs_converters/SVP/work/obs_seq_to_netcdf  .
+ln -sf $DART/observations/obs_converters/SVP/work/obs_sequence_tool  .
+ln -sf $DART/observations/obs_converters/SVP/work/svp_to_obs .
+ln -sf $DART/observations/obs_converters/SVP/work/preprocess .
+cp $DART/observations/obs_converters/SVP/work/input.nml .
 ls -d /scratch/m2p3_inacawo_ens/inaCAWO_DA_inputs/SVP/20260829/* > obs_files.txt
 ```
 
