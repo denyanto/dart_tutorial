@@ -234,6 +234,11 @@ obs_seq_to_netcdf
 obs_sequence_tool
 cmems_ssh_to_obs
 ```
+### ROMS-Rutgers
+```console
+cd $HOME/misc/DART/models/ROMS_rutgers/work
+./quickbuild.sh
+```
 
 ## Create conda environment **dart**
 ```console
