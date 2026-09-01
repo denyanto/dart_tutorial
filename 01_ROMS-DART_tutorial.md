@@ -157,7 +157,8 @@ cp $DART/observations/obs_converters/cmems_ssh_l3/work/input.nml .
 ls -d /scratch/inanwp/test3/dart-work/ssh/cmems_obs-sl_glo_phy-ssh_nrt_c2n-l3-duacs_PT1S_1780585148858.csv > obs_files.txt
 ./cmems_ssh_to_obs
 ```
-The resulting observation sequence file will be written to “obs_seq.ssh”
+The resulting observation sequence file will be written to “obs_seq.ssh”.
+### Merge all obs_seq files
 Now that we’ve created all individual observation sequence files, and in preparation for a data assimilation run in DART, we want to merge all obs_seq files (i.e., stitch them together). For that, we will use a DART utility called “obs_sequence_tool”. Edit the input.nml:
 ```console
 &obs_sequence_tool_nml
