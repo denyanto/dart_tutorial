@@ -254,7 +254,7 @@ model_mod_check
 cd $HOME/misc/DART/observations/obs_converters/NCEP/prep_bufr
 ./install.sh
 ```
-Confirm the exe directory contains the executables:
+Confirm the ``exe`` directory contains the executables:
 ```console
 prepbufr.x
 prepbufr_03Z.x
@@ -266,6 +266,20 @@ Go to the ``$DART_DIR/observations/obs_converters/NCEP/prep_bufr/work/``
 ```console
 cd $HOME/misc/DART/observations/obs_converters/NCEP/prep_bufr/work
 ./quickbuild.sh
+```
+Confirm the executable file:
+```console
+advance_time
+```
+### Observation II - ASCII Format
+```console
+cd $HOME/misc/DART/observations/obs_converters/NCEP/ascii_to_obs/work
+./install.sh
+```
+Confirm the executable files:
+```console
+create_real_obs
+prepbufr_to_obs
 ```
 
 
