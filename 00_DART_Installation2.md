@@ -248,6 +248,16 @@ create_obs_sequence       obs_seq_to_netcdf       obs_common_subset  obs_seq_ver
 model_mod_check             
 ```
 
+## Build and Install WRF-DART
+### Observation I - BUFR Format
+```console
+cd $HOME/misc/DART/observations/obs_converters/NCEP/prep_bufr
+./install.sh
+cd $HOME/misc/DART/observations/obs_converters/NCEP/prep_bufr/work
+./quickbuild.sh
+```
+
+
 ## Create conda environment **dart**
 ```console
 conda create --name dart
