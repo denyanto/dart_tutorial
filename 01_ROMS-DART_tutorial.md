@@ -162,10 +162,10 @@ The resulting observation sequence file will be written to “obs_seq.ssh”.
 Now that we’ve created all individual observation sequence files, and in preparation for a data assimilation run in DART, we want to merge all obs_seq files (i.e., stitch them together). For that, we will use a DART utility called “obs_sequence_tool”. Edit the input.nml:
 ```console
 &obs_sequence_tool_nml
-   filename_seq      = 'obs_seq.ssh', '../../cmems_sst_l3s/work/obs_seq.sst', 
-                       '../../HFradar/work/obs_seq.hf', '../../ARVOR/work/obs_seq.arvor', 
-                       '../../SVP/work/obs_seq.svp'
-   filename_out      = '../../../../models/ROMS_rutgers/work/obs_seq_all.out'
+   filename_seq      = 'obs_seq.ssh', '../sst/obs_seq.sst', 
+                       '../hf/obs_seq.hf', '../arvor/obs_seq.arvor', 
+                       '../svp/obs_seq.svp'
+   filename_out      = '../roms_rugers/obs_seq_all.out'
    print_only        = .false.
    gregorian_cal     = .true.
    first_obs_days    = -1
