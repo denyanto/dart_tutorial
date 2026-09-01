@@ -253,6 +253,14 @@ model_mod_check
 ```console
 cd $HOME/misc/DART/observations/obs_converters/NCEP/prep_bufr
 ./install.sh
+```
+Confirm the exe directory contains the executables:
+```console
+``prepbufr.x``, ``prepbufr_03Z.x``,
+   ``grabbufr.x`` and ``cword.x``.
+```
+
+```console
 cd $HOME/misc/DART/observations/obs_converters/NCEP/prep_bufr/work
 ./quickbuild.sh
 ```
