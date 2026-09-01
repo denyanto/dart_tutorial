@@ -28,6 +28,6 @@ dependencies:
 ```
 Then run the conda command, assuming conda is already installed.
 ```console
-conda -f environment.yml
+conda env create -f environment.yml
 ```
 
