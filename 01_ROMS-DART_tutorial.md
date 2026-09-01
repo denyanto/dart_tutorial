@@ -158,5 +158,49 @@ ls -d /scratch/inanwp/test3/dart-work/ssh/cmems_obs-sl_glo_phy-ssh_nrt_c2n-l3-du
 ./cmems_ssh_to_obs
 ```
 The resulting observation sequence file will be written to “obs_seq.ssh”
+Now that we’ve created all individual observation sequence files, and in preparation for a data assimilation run in DART, we want to merge all obs_seq files (i.e., stitch them together). For that, we will use a DART utility called “obs_sequence_tool”. Edit the input.nml:
+```console
+&obs_sequence_tool_nml
+   filename_seq      = 'obs_seq.ssh', '../../cmems_sst_l3s/work/obs_seq.sst', 
+                       '../../HFradar/work/obs_seq.hf', '../../ARVOR/work/obs_seq.arvor', 
+                       '../../SVP/work/obs_seq.svp'
+   filename_out      = '../../../../models/ROMS_rutgers/work/obs_seq_all.out'
+   print_only        = .false.
+   gregorian_cal     = .true.
+   first_obs_days    = -1
+   first_obs_seconds = -1
+   last_obs_days     = -1
+   last_obs_seconds  = -1
+   /
+```
+Run the program:
+```console
+./obs_sequence_tool
+```
+Inspect the output messages 
+```console
+   Processing sequence file ../roms_rutgers/obs_seq_all.out
+   Data Metadata: observation
+     QC Metadata: QC
+  First obs time: day=155141, sec=0
+   Gregorian day: 2025 Oct 06 00:00:00
+   Last obs time: day=155468, sec=82800
+   Gregorian day: 2026 Aug 29 23:00:00
+   Number of obs processed  :                601439
+   ---------------------------------------------------------
+                    FLOAT_SALINITY     212 obs
+                 FLOAT_TEMPERATURE     212 obs
+       DRIFTER_U_CURRENT_COMPONENT     120 obs
+       DRIFTER_V_CURRENT_COMPONENT     120 obs
+               DRIFTER_TEMPERATURE     120 obs
+             SATELLITE_BLENDED_SST   36638 obs
+                     SATELLITE_SSH    1449 obs
+       HFRADAR_U_CURRENT_COMPONENT  281284 obs
+       HFRADAR_V_CURRENT_COMPONENT  281284 obs
 
-
+  write_obs_seq  opening formatted observation sequence file "../roms_rutgers/ob
+ s_seq_all.out"
+  write_obs_seq  closed observation sequence file "../roms_rutgers/obs_seq_all.o
+ ut"
+  obs_sequence_tool Finished successfully.
+```
