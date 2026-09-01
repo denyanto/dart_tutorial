@@ -256,10 +256,13 @@ cd $HOME/misc/DART/observations/obs_converters/NCEP/prep_bufr
 ```
 Confirm the exe directory contains the executables:
 ```console
-``prepbufr.x``, ``prepbufr_03Z.x``,
-   ``grabbufr.x`` and ``cword.x``.
+prepbufr.x
+prepbufr_03Z.x
+grabbufr.x
+cword.x
 ```
-
+Go to the ``$DART_DIR/observations/obs_converters/NCEP/prep_bufr/work/``
+   directory and run ``quickbuild.sh`` to build the ``advance_time`` executable:
 ```console
 cd $HOME/misc/DART/observations/obs_converters/NCEP/prep_bufr/work
 ./quickbuild.sh
