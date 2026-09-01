@@ -31,6 +31,7 @@ Then run the conda command, assuming conda is already installed.
 conda env create -f environment.yml
 ```
 ## Visualize SVP observations on a map
+Create a plotting folder to store the visualization scripts. Misalnya svp_ploting.py:
 ```console
 import pydartdiags.obs_sequence.obs_sequence as obsq
 from pathlib import Path
