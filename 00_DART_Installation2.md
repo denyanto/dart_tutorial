@@ -239,6 +239,14 @@ cmems_ssh_to_obs
 cd $HOME/misc/DART/models/ROMS_rutgers/work
 ./quickbuild.sh
 ```
+This would generate several programs:
+```console
+advance_time              fill_inflation_restart  obs_diag           perfect_model_obs
+closest_member_tool       filter                  obs_selection      perturb_single_instance
+create_fixed_network_seq  obs_seq_coverage        preprocess         wakeup_filter
+create_obs_sequence       obs_seq_to_netcdf       obs_common_subset  obs_seq_verify
+model_mod_check           obs_sequence_tool  
+```
 
 ## Create conda environment **dart**
 ```console
