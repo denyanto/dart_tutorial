@@ -274,12 +274,21 @@ advance_time
 ### Observation II - ASCII Format
 ```console
 cd $HOME/misc/DART/observations/obs_converters/NCEP/ascii_to_obs/work
-./install.sh
+./quickbuild.sh
 ```
 Confirm the executable files:
 ```console
 create_real_obs
 prepbufr_to_obs
+```
+### Observation III - NETCDF Format
+```console
+cd $HOME/misc/DART/observations/obs_converters/NCEP/netcdf/work
+./quickbuild.sh
+```
+Confirm the executable file:
+```console
+convert_pb_netcdf
 ```
 
 
