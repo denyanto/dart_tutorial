@@ -137,9 +137,26 @@ ln -sf $DART/observations/obs_converters/cmems_sst_l3s/work/obs_sequence_tool  .
 ln -sf $DART/observations/obs_converters/cmems_sst_l3s/work/cmems_sst_to_obs .
 ln -sf $DART/observations/obs_converters/cmems_sst_l3s/work/preprocess .
 cp $DART/observations/obs_converters/cmems_sst_l3s/work/input.nml .
-ls -d /scratch/inanwp/test3/dart-work/sst/*nc > obs_files.txt
+ls -d /scratch/inanwp/test3/dart-work/sst/cmems_obs-sst_glo_phy_my_l3s_P1D-m_1780584695815.nc > obs_files.txt
 ./cmems_sst_to_obs
 ```
 The resulting observation sequence file will be written to “obs_seq.sst”
+### Sattelite SSH Data Processing
+To begin working on converting our SSH data, using Data source: https://data.marine.copernicus.eu/product/SEALEVEL_GLO_PHY_L3_NRT_008_044.
+
+```console
+cd /scratch/inanwp/dart-work
+mkdir ssh
+cd ssh
+ln -sf $DART/observations/obs_converters/cmems_ssh_l3/work/advance_time  .
+ln -sf $DART/observations/obs_converters/cmems_ssh_l3/work/obs_seq_to_netcdf  .
+ln -sf $DART/observations/obs_converters/cmems_ssh_l3/work/obs_sequence_tool  .
+ln -sf $DART/observations/obs_converters/cmems_ssh_l3/work/cmems_ssh_to_obs .
+ln -sf $DART/observations/obs_converters/cmems_ssh_l3/work/preprocess .
+cp $DART/observations/obs_converters/cmems_ssh_l3/work/input.nml .
+ls -d /scratch/inanwp/test3/dart-work/ssh/cmems_obs-sl_glo_phy-ssh_nrt_c2n-l3-duacs_PT1S_1780585148858.csv > obs_files.txt
+./cmems_ssh_to_obs
+```
+The resulting observation sequence file will be written to “obs_seq.ssh”
 
 
