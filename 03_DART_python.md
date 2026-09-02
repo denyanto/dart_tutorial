@@ -29,6 +29,7 @@ dependencies:
 Then run the conda command, assuming conda is already installed.
 ```console
 conda env create -f environment.yml
+conda activate dart
 ```
 ## Visualize SVP observations on a map
 Create a plotting folder to store the visualization scripts. Misalnya svp_ploting.py:
