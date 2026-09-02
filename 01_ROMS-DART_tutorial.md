@@ -150,7 +150,7 @@ mkdir ssh
 cd ssh
 ln -sf $DART/observations/obs_converters/cmems_ssh_l3/work/advance_time  .
 ln -sf $DART/observations/obs_converters/cmems_ssh_l3/work/obs_seq_to_netcdf  .
-ln -sf $DART/observations/obs_converters/cmems_ssh_l3/work/obs_sequence_tool  .
+ln -sf $DART/observations/obs_converters/cmems_ssh_l3/work/obs_sequence_tool  . 
 ln -sf $DART/observations/obs_converters/cmems_ssh_l3/work/cmems_ssh_to_obs .
 ln -sf $DART/observations/obs_converters/cmems_ssh_l3/work/preprocess .
 cp $DART/observations/obs_converters/cmems_ssh_l3/work/input.nml .
