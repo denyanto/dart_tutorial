@@ -158,13 +158,16 @@ ls -d /scratch/inanwp/test3/dart-work/ssh/cmems_obs-sl_glo_phy-ssh_nrt_c2n-l3-du
 ./cmems_ssh_to_obs
 ```
 The resulting observation sequence file will be written to “obs_seq.ssh”.
+
 Adjusting the SSH Data and Errors
 ```console
-cd /scratch/inanwp/dart-work/roms_rutgers
+cd /scratch/inanwp/dart-work/ssh
 cp /home/inanwp/misc/DART/models/ROMS_rutgers/preprocess_ocean_obs.py .
+cp /scratch/cawofcst_dev/data/shared_data/bmkg_bathy_coast/cawo_grid_3km_min3_max5000_wrf_bmkgmask_sponge5_v2.6.7.nc .
+ln -sf cawo_grid_3km_min3_max5000_wrf_bmkgmask_sponge5_v2.6.7.nc roms.nc
 obs_seq_all=/scratch/inanwp/dart-work/ssh/obs_seq.ssh
 obs_seq_trim=/scratch/inanwp/dart-work/ssh/obs_seq.ssh_trim
-roms_file=/scratch/inanwp/dart-work/roms_rutgers/roms.nc
+roms_file=/scratch/inanwp/dart-work/ssh/roms.nc
 python preprocess_ocean_obs.py $obs_seq_all $obs_seq_trim --roms-file $roms_file --obs-type SATELLITE_SSH
 ```
 
