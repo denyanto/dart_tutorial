@@ -668,9 +668,9 @@ display(summary)
 
 ## Visualize Satellite SST observations on a map
 Create a plotting folder to store the visualization scripts. Misalnya hf_ploting.py:
-```console
 <details>
 <summary>📜 Expand Python script</summary>
+```python
 import pydartdiags.obs_sequence.obs_sequence as obsq
 import numpy             as np
 import pandas            as pd
@@ -860,8 +860,8 @@ summary = pd.DataFrame({
 })
 
 display(summary.round(3).style.hide(axis="index"))
-</details>
 ```
+</details>
 <img width="667" height="406" alt="sst1" src="https://github.com/user-attachments/assets/abfcecdc-96a3-4b03-8a6f-0d5174fbf2c3" />
 <img width="639" height="433" alt="sst2" src="https://github.com/user-attachments/assets/6c636468-400f-4b44-ba16-72348f753821" />
 <img width="679" height="406" alt="sst3" src="https://github.com/user-attachments/assets/3ecf9629-eaab-42e4-bfd8-664d8a73fd3b" />
