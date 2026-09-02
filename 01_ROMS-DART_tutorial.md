@@ -201,7 +201,7 @@ Inspect the output messages
    Gregorian day: 2025 Oct 06 00:00:00
    Last obs time: day=155468, sec=82800
    Gregorian day: 2026 Aug 29 23:00:00
-   Number of obs processed  :                601439
+   Number of obs processed  :                602395
    ---------------------------------------------------------
                     FLOAT_SALINITY     212 obs
                  FLOAT_TEMPERATURE     212 obs
@@ -209,7 +209,7 @@ Inspect the output messages
        DRIFTER_V_CURRENT_COMPONENT     120 obs
                DRIFTER_TEMPERATURE     120 obs
              SATELLITE_BLENDED_SST   36638 obs
-                     SATELLITE_SSH    1449 obs
+                     SATELLITE_SSH    2405 obs
        HFRADAR_U_CURRENT_COMPONENT  281284 obs
        HFRADAR_V_CURRENT_COMPONENT  281284 obs
 
