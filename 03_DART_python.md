@@ -663,4 +663,6 @@ summary = pd.DataFrame(summary)
 
 display(summary)
 ```
-<img width="1247" height="350" alt="hf2" src="https://github.com/user-attachments/assets/5d68c772-eb7d-4a42-96b8-01bbb42238f4" />
+<img width="615" height="548" alt="hf1" src="https://github.com/user-attachments/assets/4f7732b8-9ff0-4946-bf23-bd561df05285" />
+<img width="710" height="621" alt="hf2" src="https://github.com/user-attachments/assets/307a570f-52d6-4725-bd95-6d1533a44beb" />
+
