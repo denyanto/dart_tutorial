@@ -124,7 +124,7 @@ head -1000 obs_files.txt > obs_files.txt
 ./hf_to_obs
 ```
 The resulting observation sequence file will be written to “obs_seq.hf”
-### Sattelite SST Data Processing
+### Satellite SST Data Processing
 To begin working on converting our SST data, using Data source: https://data.marine.copernicus.eu/product/SST_GLO_PHY_L3S_MY_010_039.
 
 ```console
@@ -141,7 +141,7 @@ ls -d /scratch/inanwp/test3/dart-work/sst/cmems_obs-sst_glo_phy_my_l3s_P1D-m_178
 ./cmems_sst_to_obs
 ```
 The resulting observation sequence file will be written to “obs_seq.sst”
-### Sattelite SSH Data Processing
+### Satellite SSH Data Processing
 To begin working on converting our SSH data, using Data source: https://data.marine.copernicus.eu/product/SEALEVEL_GLO_PHY_L3_NRT_008_044.
 
 ```console
