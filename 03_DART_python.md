@@ -667,10 +667,8 @@ display(summary)
 <img width="710" height="621" alt="hf2" src="https://github.com/user-attachments/assets/307a570f-52d6-4725-bd95-6d1533a44beb" />
 
 ## Visualize Satellite SST observations on a map
-Create a plotting folder to store the visualization scripts. Misalnya hf_ploting.py:
-<details>
-<summary>📜 Expand Python script</summary>
-```python
+Create a plotting folder to store the visualization scripts. Misalnya sst_ploting.py:
+```console
 import pydartdiags.obs_sequence.obs_sequence as obsq
 import numpy             as np
 import pandas            as pd
@@ -861,8 +859,200 @@ summary = pd.DataFrame({
 
 display(summary.round(3).style.hide(axis="index"))
 ```
-</details>
 <img width="667" height="406" alt="sst1" src="https://github.com/user-attachments/assets/abfcecdc-96a3-4b03-8a6f-0d5174fbf2c3" />
 <img width="639" height="433" alt="sst2" src="https://github.com/user-attachments/assets/6c636468-400f-4b44-ba16-72348f753821" />
 <img width="679" height="406" alt="sst3" src="https://github.com/user-attachments/assets/3ecf9629-eaab-42e4-bfd8-664d8a73fd3b" />
 
+## Visualize Satellite SSH observations on a map
+Create a plotting folder to store the visualization scripts. Misalnya ssh_ploting.py:
+```console
+import pydartdiags.obs_sequence.obs_sequence as obsq
+import numpy             as np
+import pandas            as pd
+import cartopy.crs       as ccrs
+import cartopy.feature   as cfeature
+import matplotlib.pyplot as plt
+import matplotlib.dates  as mdates
+from pathlib import Path
+from IPython.display      import Markdown, display
+import cmocean
+
+# Path to DART repo (directory) 
+basedir = Path(f"{$rundart}")
+
+# Path to the SST converter
+svp_dir = basedir / 'sst' 
+
+# Path to the obs_seq file
+obs_seq_file = svp_dir / 'obs_seq.sst'
+print(f"obs_seq file: {obs_seq_file}")
+
+# Make sure the obs_Seq file exists
+assert obs_seq_file.exists(), 'obs_seq file not found'
+
+# Read the obs seq file into a DataFrame
+obs = obsq.ObsSequence(obs_seq_file)
+
+# Uncomment to inspect available methods/attributes
+# help(obs)
+
+# Examine the file
+print(f"DataFrame shape: {obs.df.shape}")
+print('\n')
+
+display(obs.df)
+
+# To view everything
+# obs_seq.df
+# obs_seq.all_obs
+
+print("*" * 16)
+print("obs_seq SUMMARY:")
+print("*" * 16)
+
+print(f"\nNumber of observations : {len(obs.df)}")
+print(f"Number of obs types    : {len(obs.types)}")
+
+# Available observation types in the obs_seq file 
+# Each type is associated with a DART idenitifier number
+print("\nObservation types:")
+for kind, name in obs.types.items():
+    print(f"  {kind:3d} : {name}")
+
+# Number of copies in the obs_seq 
+# observation, QC, .. could be more especially after assimilation 
+print("\nObservation copies:")
+for i, name in enumerate(obs.copie_names):
+    print(f"  {i:2d} : {name}")
+
+# Number of QCs
+print("\nQC copies:")
+for i, name in enumerate(obs.qc_copie_names):
+    print(f"  {i:2d} : {name}")
+
+display(
+    obs.df["type"]
+    .value_counts()
+    .rename_axis("Observation Type")
+    .to_frame("Count")
+)
+
+# Extract data from the obs_seq file
+df   = obs.df.copy()
+
+data = df['observation'] 
+lon  = df['longitude']
+lat  = df['latitude']
+err  = np.sqrt(df['obs_err_var'])
+time = sorted(df['time'].unique())[0]
+
+proj = ccrs.PlateCarree()
+
+fig = plt.figure(figsize=(10, 6))
+ax  = plt.axes(projection=proj)
+
+ax.set_facecolor('aliceblue') 
+ax.add_feature(cfeature.LAND, facecolor='whitesmoke', zorder=1) 
+ax.add_feature(cfeature.NaturalEarthFeature('physical', 'coastline', '10m'), 
+               edgecolor='black', facecolor='none', zorder=2)
+ax.add_feature(cfeature.LAKES, facecolor='lightsteelblue', zorder=2)
+ax.add_feature(cfeature.BORDERS, linewidth=0.5, zorder=2)
+
+
+# Observations
+sc = ax.scatter(lon, lat,
+                c=data, s = 10,
+                cmap=cmocean.cm.thermal, linewidth=0.5,
+                zorder=3,
+                transform=proj)
+
+cb = plt.colorbar(sc, ax=ax, label='SST Obs Value (C)', shrink=0.6)
+
+ax.set_extent([95, 145, -15, 15], crs=proj)
+
+# gl = ax.gridlines(draw_labels=True, linewidth=0.5, color='gray', alpha=0.1)
+# gl.top_labels   = False
+# gl.right_labels = False
+
+plt.title(f"Satellite L3 SST Observations\n{time}", fontsize=18)
+plt.show()
+
+# display(Markdown("""
+# ### Interpretation of Satellite SST Observations
+
+# Satellite SST observations provide estimates of sea surface temperature over large spatial areas. 
+# Unlike in-situ observations, satellite measurements offer broad coverage but may contain spatially varying uncertainties. 
+# The colors in the figure above represent the observed SST values.
+# """))
+fig.savefig('fig/sst1.png', format='png', dpi=90, bbox_inches='tight')
+
+# Histogram 
+fig=plt.figure(figsize=(8,5))
+
+plt.hist(data, bins=30)
+
+plt.xlabel("SST (C)", fontsize=14)
+plt.ylabel("Count", fontsize=14)
+plt.title("Distribution of Satellite SST Observations", fontsize=18)
+plt.grid(alpha=0.3)
+fig.savefig('fig/sst2.png', format='png', dpi=90, bbox_inches='tight')
+
+# Display the errors
+fig = plt.figure(figsize=(10, 6))
+ax  = plt.axes(projection=proj)
+
+ax.set_facecolor('aliceblue') 
+ax.add_feature(cfeature.LAND, facecolor='whitesmoke', zorder=1) 
+ax.add_feature(cfeature.NaturalEarthFeature('physical', 'coastline', '10m'), 
+               edgecolor='black', facecolor='none', zorder=2)
+ax.add_feature(cfeature.LAKES, facecolor='lightsteelblue', zorder=2)
+ax.add_feature(cfeature.BORDERS, linewidth=0.5, zorder=2)
+
+
+# Observations
+sc = ax.scatter(lon, lat,
+                c=err, s = 10,
+                cmap='plasma', linewidth=0.5,
+                zorder=3,
+                transform=proj)
+
+cb = plt.colorbar(sc, ax=ax, label='Obs Error SD (C)', shrink=0.6)
+
+ax.set_extent([95, 145, -15, 15], crs=proj)
+
+# gl = ax.gridlines(draw_labels=True, linewidth=0.5, color='gray', alpha=0.1)
+# gl.top_labels   = False
+# gl.right_labels = False
+
+plt.title(f"Satellite L3 SST Observations\n{time}", fontsize=18)
+plt.show()
+
+# display(Markdown("""
+# ### Interpretation of SST Observation Errors
+
+# The colors in the figure above represent the observation error standard deviation assigned to each satellite SST observation. 
+# Smaller values indicate observations that are expected to be more accurate and therefore receive greater weight during data assimilation. 
+# The spatial variability in the assigned errors originates from the uncertainty estimates provided with the SST product. 
+# Regions with lower uncertainties (dark colors) generally correspond to areas where the satellite retrievals are considered more reliable, 
+# while regions with higher uncertainties (bright colors) indicate reduced confidence in the observations.
+# These uncertainties are carried into the DART observation sequence file and are used during 
+# assimilation to determine how strongly each observation influences the model analysis.
+# """))
+fig.savefig('fig/sst3.png', format='png', dpi=90, bbox_inches='tight')
+
+
+print(f"Longitude range : {df['longitude'].min():.2f}° to {df['longitude'].max():.2f}°")
+print(f"Latitude range  : {df['latitude'].min():.2f}° to {df['latitude'].max():.2f}°")
+print(f"Time range      : {df['time'].min()} to {df['time'].max()}\n")
+
+summary = pd.DataFrame({
+    "Count"        : [len(df)],
+    "Min SST"      : [df["observation"].min()],
+    "Max SST"      : [df["observation"].max()],
+    "Mean SST"     : [df["observation"].mean()],
+    "Std SST"      : [df["observation"].std()],
+    "Mean Error"   : [np.sqrt(df["obs_err_var"]).mean()],
+})
+
+display(summary.round(3).style.hide(axis="index"))
+```
