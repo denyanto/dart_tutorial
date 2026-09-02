@@ -233,6 +233,9 @@ plt.tight_layout()
 plt.show()
 plt.savefig('fig/svp2.png', format='png', dpi=90, bbox_inches='tight')
 ```
+<img width="607" height="621" alt="svp1" src="https://github.com/user-attachments/assets/4787f3f2-abe1-4e7d-ba8a-9922b5a825ab" />
+<img width="1421" height="711" alt="svp2" src="https://github.com/user-attachments/assets/d8afdcdd-2769-42fd-ad40-f08d53a4d55a" />
+
 ## Visualize ARVOR observations on a map
 Create a plotting folder to store the visualization scripts. Misalnya arvor_ploting.py:
 ```console
@@ -434,6 +437,9 @@ plt.tight_layout()
 plt.show()
 plt.savefig('fig/arvor2.png', format='png', dpi=90, bbox_inches='tight')
 ```
+<img width="828" height="621" alt="arvor1" src="https://github.com/user-attachments/assets/f484a563-85bc-46ed-ad65-6b27b77c14c2" />
+<img width="1431" height="710" alt="arvor2" src="https://github.com/user-attachments/assets/6428c587-7704-4724-834e-883072f5adff" />
+
 ## Visualize HF Radar observations on a map
 Create a plotting folder to store the visualization scripts. Misalnya hf_ploting.py:
 ```console
