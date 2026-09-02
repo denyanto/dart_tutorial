@@ -444,6 +444,8 @@ plt.savefig('fig/arvor2.png', format='png', dpi=90, bbox_inches='tight')
 Create a plotting folder to store the visualization scripts. Misalnya hf_ploting.py:
 ```console
 import pydartdiags.obs_sequence.obs_sequence as obsq
+import numpy             as np
+import pandas            as pd
 import cartopy.crs       as ccrs
 import cartopy.feature   as cfeature
 import matplotlib.pyplot as plt
@@ -455,11 +457,11 @@ import cmocean
 # Path to DART repo (directory) 
 basedir = Path(f"{$rundart}")
 
-# Path to the ARVOR converter
-svp_dir = basedir / 'arvor' 
+# Path to the HF Radar converter
+svp_dir = basedir / 'hf' 
 
 # Path to the obs_seq file
-obs_seq_file = svp_dir / 'obs_seq.arvor'
+obs_seq_file = svp_dir / 'obs_seq.hf'
 print(f"obs_seq file: {obs_seq_file}")
 
 # Make sure the obs_Seq file exists
@@ -514,130 +516,151 @@ display(
 
 df = obs.df.copy()
 
-# Define obs info as a list of tuples to use for plotting
-plot_specs = [
-    ("FLOAT_TEMPERATURE", "Temperature", "C"  , cmocean.cm.thermal),
-    ("FLOAT_SALINITY"   , "Salinity"   , "psu", cmocean.cm.haline),
-]
+# Total velocity observation types
+u_type = "HFRADAR_U_CURRENT_COMPONENT"
+v_type = "HFRADAR_V_CURRENT_COMPONENT"
 
-# Define the cartopy projection: standard. un-projected Equidistant 
-# Cylindrical coordinate system (lons, lats mapped to 2D cartesian grid)
+df_u = df[df["type"] == u_type].copy()
+df_v = df[df["type"] == v_type].copy()
+
+# Merge U and V observations by time and location
+df_totals = pd.merge(
+    df_u,
+    df_v,
+    on=["time", "longitude", "latitude"],
+    suffixes=("_u", "_v"),
+)
+
+df_totals = df_totals.rename(
+    columns={
+        "observation_u": "u",
+        "observation_v": "v",
+        "obs_err_var_u": "u_err_var",
+        "obs_err_var_v": "v_err_var",
+    }
+)
+
+# Compute the speed using both U and V
+df_totals["speed"] = np.sqrt(df_totals["u"]**2 + df_totals["v"]**2)
+
+print(f"Number of paired total velocity observations: {len(df_totals)}\n")
+
+display(df_totals.head())
+
+display(
+    df_totals.groupby("time")
+    .size()
+    .rename("Number of total velocity vectors")
+    .to_frame()
+)
+
+# Select one time to plot
+plot_time = sorted(df_totals["time"].unique())[0]
+
+ob_sub = df_totals[df_totals["time"] == plot_time]
+
 proj = ccrs.PlateCarree()
-# fig = plt.figure(figsize=(16,7))
-# # We will plot a figure containing 3 different plots (maps)
-# axes = fig.add_subplot(1, 3, sharey=True, projection=proj)
-fig, axes = plt.subplots(
-    2, 1,
-    figsize=(10, 7),
-    sharex=True,
-    subplot_kw={"projection": proj}
+
+fig = plt.figure(figsize=(9, 7))
+ax = plt.axes(projection=proj)
+
+ax.coastlines(resolution="10m")
+ax.add_feature(cfeature.OCEAN, facecolor="aliceblue")
+ax.add_feature(cfeature.LAND, facecolor="whitesmoke")
+ax.add_feature(cfeature.BORDERS, linewidth=0.5)
+
+lon, lat = ob_sub['longitude'], ob_sub['latitude']
+Uvel, Vvel, Uall = ob_sub['u'], ob_sub['v'], ob_sub['speed']
+
+q = ax.quiver(lon, lat, Uvel, Vvel, Uall, 
+    cmap=cmocean.cm.speed,
+    transform=proj,
+    scale=3, width=0.006,
 )
 
-# Loop over figure specs:
-# ax: current axis; obs_type: T, U, V; cmap: colormap style
-for ax, (obs_type, title, label, cmap) in zip(axes, plot_specs):
+plt.colorbar(q, ax=ax, label="Current speed (m/s)", shrink=0.65)
 
-    # subset dataframe by observation type
-    # i.e., only get data for each obs type
-    this_ob = df[df["type"] == obs_type]
+lon_min, lon_max = df_totals["longitude"].min(), df_totals["longitude"].max()
+lat_min, lat_max = df_totals["latitude"].min() , df_totals["latitude"].max()
 
-    ax.coastlines(resolution="10m")
-    ax.add_feature(cfeature.OCEAN, facecolor="aliceblue")
-    ax.add_feature(cfeature.LAKES, facecolor="lightsteelblue")
-    ax.add_feature(cfeature.LAND, zorder=0, linewidth=0.5, facecolor="whitesmoke")
-    ax.add_feature(cfeature.BORDERS, linewidth=0.5)
-
-    sc = ax.scatter(
-        this_ob["longitude"],
-        this_ob["latitude"],
-        c=this_ob["observation"],
-        s=80,
-        cmap=cmap,
-        transform=proj,
-        zorder=5,
-    )
-
-    plt.colorbar(sc, ax=ax, label=label, shrink=1)
-
-    ax.set_extent([110, 140, -10, 0], crs=proj)
-
-    # gl = ax.gridlines(draw_labels=True, linewidth=0.5, color="gray", alpha=0.2)
-    # gl.top_labels = False
-    # gl.right_labels = False
-
-    ax.set_title(f"{title} (N={len(this_ob)})")
-
-plt.suptitle("ARVOR Observations by Type", fontsize=18)
-plt.tight_layout()
-
-# display(Markdown("""
-# The maps below show the locations and values of the different observation types in the `obs_seq` file. 
-# """))
-
-plt.show()
-plt.savefig('fig/arvor1.png', format='png', dpi=90, bbox_inches='tight')
-
-# Keep only drifters in the Indonesia domain
-df = df[
-    (df["longitude"] >= 95) & (df["longitude"] <= 145) &
-    (df["latitude"]  >= -15) & (df["latitude"]  <= 15)
-].copy()
-
-# Create a drifter ID from location
-this_ob = df[df["type"] == obs_type].copy()
-
-# Use rounded (approximate) location to identify drifters
-this_ob["arvor_id"] = (this_ob["longitude"].round(2).astype(str) + "_" + this_ob["latitude"].round(2).astype(str))
-
-# Sort IDs so numbering is reproducible
-ids = sorted(this_ob["arvor_id"].unique())
-
-id_map = {id_: f"ARVOR Float {i+1}" for i, id_ in enumerate(ids)}
-
-fig, axes = plt.subplots(
-    nrows=len(plot_specs),
-    ncols=1,
-    figsize=(16, 8),
-    sharex=True,
+ax.set_extent(
+    [lon_min - 0.5, lon_max + 0.5, lat_min - 0.5, lat_max + 0.5],
+    crs=proj,
 )
 
-for ax, (obs_type, title, ylabel, cmap) in zip(axes, plot_specs):
+gl = ax.gridlines(draw_labels=True, linewidth=0.5, color="gray", alpha=0.3)
+gl.top_labels = False
+gl.right_labels = False
 
-    this_ob = df[df["type"] == obs_type].copy()
-
-    this_ob["arvor_id"] = (this_ob["longitude"].round(2).astype(str) + "_" + this_ob["latitude"].round(2).astype(str))
-
-    ids = sorted(this_ob["arvor_id"].unique())
-    id_map = {id_: f"ARVOR Float {i+1}" for i, id_ in enumerate(ids)}
-
-    for arvor_id in ids:
-
-        prof = this_ob[this_ob["arvor_id"] == arvor_id].sort_values("vertical")
-
-        lon0 = prof["longitude"].iloc[0]
-        lat0 = prof["latitude"].iloc[0]
-
-        ax.plot(prof["observation"], prof["vertical"], "-o", ms=4, lw=1.8,
-                label=f"{id_map[arvor_id]} ({lon0:.2f}°E, {lat0:.2f}°N)")
-
-        ax.invert_yaxis()
-        ax.set_ylim(10000, 1)
-        ax.set_yscale('log')
-        
-        ax.set_xlabel(ylabel, fontsize= 14)
-        ax.set_ylabel('Depth (m)', fontsize= 14)
-        ax.set_title(f"{title} (N={len(this_ob)})", fontsize=16)
-        
-        ax.grid(True, alpha=0.25)
-        ax.legend(fontsize=12)
-
-plt.tight_layout()
-
-# display(Markdown("""
-# At each analysis time, there are observations from <mark>**several (4) drifters**</mark>. 
-# There is one other SVP drifter that is already outside our InaCAWO domain; we've ignored it here. 
-# """))
+ax.set_title(f"HF Radar Total Velocity Vectors\n{plot_time}", fontsize=15)
 
 plt.show()
-plt.savefig('fig/arvor2.png', format='png', dpi=90, bbox_inches='tight')
+
+# display(Markdown("""
+# ### Interpretation of Total Velocity Observations
+
+# HF radar total velocity observations provide both the eastward (U) and northward (V) components of the surface current. 
+# <mark>**These observations therefore describe the full horizontal current vector at each observation location**</mark>.
+# In the figure above, the arrows represent the observed surface current vectors, while the color indicates the current speed. 
+# Total velocity observations are typically derived by combining radial measurements from multiple radar stations and provide 
+# a direct estimate of the two-dimensional surface flow field.
+# """))
+
+fig.savefig('fig/hf1.png', format='png', dpi=90, bbox_inches='tight')
+
+# Plot observation counts of the total velocity components over time
+fig, axes = plt.subplots(1, 2, figsize=(14, 4))
+
+ax = axes[0]
+(df_totals.groupby("time")
+          .size()
+          .rename("Number of vectors")
+          .plot(marker="o", ax=ax))
+ax.set_ylabel("Count")
+ax.set_title("HF Radar Total Velocity Observations Through Time")
+ax.grid(alpha=0.3)
+
+# Speed Histogram 
+ax = axes[1]
+
+ax.hist(df_totals["speed"], bins=20)
+ax.set_xlabel("Current speed (m/s)")
+ax.set_ylabel("Count")
+ax.set_title("Distribution of HF Radar Current Speeds")
+ax.grid(alpha=0.3)
+
+plt.tight_layout()
+plt.show()
+fig.savefig('fig/hf2.png', format='png', dpi=90, bbox_inches='tight')
+
+# Observation Statistics
+print("Observation time range:")
+print(f"{df['time'].min()} to {df['time'].max()}")
+
+print("\nLongitude range:")
+print(f"{df['longitude'].min():.2f}° to {df['longitude'].max():.2f}°")
+
+print("\nLatitude range:")
+print(f"{df['latitude'].min():.2f}° to {df['latitude'].max():.2f}°")
+
+summary = []
+
+for obs_type in sorted(df["type"].unique()):
+
+    this = df[df["type"] == obs_type]
+
+    summary.append({
+        "Type"          : obs_type,
+        "Count"         : len(this),
+        "Min"           : this["observation"].min().round(3),
+        "Max"           : this["observation"].max().round(3),
+        "Mean"          : this["observation"].mean().round(3),
+        "Std"           : this["observation"].std().round(3),
+        "Error SD" : np.sqrt(this["obs_err_var"]).mean().round(3),
+    })
+
+summary = pd.DataFrame(summary)
+
+display(summary)
 ```
+<img width="1247" height="350" alt="hf2" src="https://github.com/user-attachments/assets/5d68c772-eb7d-4a42-96b8-01bbb42238f4" />
