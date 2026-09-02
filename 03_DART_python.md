@@ -588,9 +588,9 @@ ax.set_extent(
     crs=proj,
 )
 
-gl = ax.gridlines(draw_labels=True, linewidth=0.5, color="gray", alpha=0.3)
-gl.top_labels = False
-gl.right_labels = False
+# gl = ax.gridlines(draw_labels=True, linewidth=0.5, color="gray", alpha=0.3)
+# gl.top_labels = False
+# gl.right_labels = False
 
 ax.set_title(f"HF Radar Total Velocity Vectors\n{plot_time}", fontsize=15)
 
