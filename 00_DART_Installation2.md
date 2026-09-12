@@ -313,7 +313,110 @@ NETCDF = $(INSTALL_DIR)
 HDF5 = $(NETCDF)
 RTTOV = $(DART)/../rttov132_intel/
 ```
+Adding library path:
+```console
+export RTTOV_ROOT=$HOME/misc/rttov13
+export LD_LIBRARY_PATH=$RTTOV_ROOT/lib:$LD_LIBRARY_PATH
+```
+Edit input.nml DART
+```console&preprocess_nml
+&preprocess_nml
+   input_files = '../../../observations/forward_operators/obs_def_rttov_mod.f90',
+quantity_files = '../../../assimilation_code/modules/observations/atmosphere_quantities_mod.f90',
+                  '../../../assimilation_code/modules/observations/ocean_quantities_mod.f90',
+                  '../../../assimilation_code/modules/observations/chemistry_quantities_mod.f90',
+                  '../../../assimilation_code/modules/observations/land_quantities_mod.f90'
+   /
+&obs_kind_nml
+   assimilate_these_obs_types = 'HIMAWARI_9_AHI_RADIANCE',
+                                 'RADIOSONDE_TEMPERATURE',
+                                 'RADIOSONDE_U_WIND_COMPONENT',
+                                 'RADIOSONDE_V_WIND_COMPONENT',
+   /
+&obs_def_rttov_nml
+   use_tskin = .true.
+   addsolar = .false.
+   cfrac_data = .false.
+   clw_data = .true.
+   ciw_data = .true.
+   rain_data = .false.
+   snow_data = .false.
+   graupel_data = .false.
+/
+&model_nml
 
+   default_state_variables = .false.
+
+   wrf_state_variables =
+
+      'U',
+      'QTY_U_WIND_COMPONENT',
+      'TYPE_U',
+      'UPDATE',
+      '999',
+
+      'V',
+      'QTY_V_WIND_COMPONENT',
+      'TYPE_V',
+      'UPDATE',
+      '999',
+
+      'W',
+      'QTY_VERTICAL_VELOCITY',
+      'TYPE_W',
+      'UPDATE',
+      '999',
+
+      'THM',
+      'QTY_POTENTIAL_TEMPERATURE',
+      'TYPE_T',
+      'UPDATE',
+      '999',
+
+      'PH',
+      'QTY_GEOPOTENTIAL_HEIGHT',
+      'TYPE_GZ',
+      'UPDATE',
+      '999',
+
+      'MU',
+      'QTY_PRESSURE',
+      'TYPE_MU',
+      'UPDATE',
+      '999',
+
+      'QVAPOR',
+      'QTY_VAPOR_MIXING_RATIO',
+      'TYPE_QV',
+      'UPDATE',
+      '999',
+
+      'T2',
+      'QTY_2M_TEMPERATURE',
+      'TYPE_T2',
+      'UPDATE',
+      '999',
+
+      'PSFC',
+      'QTY_SURFACE_PRESSURE',
+      'TYPE_PS',
+      'UPDATE',
+      '999',
+
+      'TSK',
+      'QTY_SKIN_TEMPERATURE',
+      'TYPE_TSK',
+      'UPDATE',
+      '999',
+
+      'HGT',
+      'QTY_SURFACE_ELEVATION',
+      'TYPE_HGT',
+      'UPDATE',
+      '999',
+/
+
+```
 
 ## Create conda environment **dart**
 ```console
