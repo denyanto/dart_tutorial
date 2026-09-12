@@ -293,12 +293,22 @@ convert_pb_netcdf
 ### Observation IV - HIMAWARI-9 AHI
 Download and Install RTTOV ver 13.2 from https://nwp-saf.eumetsat.int
 ```console
+mkdir rttov13
+cd rttov13
 tar xf rttov132.tar.xz
-cd rttov13ls build/arch/
+```
+Edit build/Makefile.local
+```console
+HDF5_PREFIX = $HOME/.libs
+NETCDF_PREFIX = $HOME/.libs
 
+FFLAGS_HDF5 = -I$(HDF5)/include
+LDFLAGS_HDF5 = -L$(HDF5)/lib -lhdf5_fortran -lhdf5
+
+FFLAGS_NETCDF = -I$(NETCDF)/include
+LDFLAGS_NETCDF = -L$(NETCDF)/lib -lnetcdff -lnetcdf
 
 ```
-
 ```console
 cd $HOME/misc/DART/build_template
 cp mkmf.template.rttov.ifort mkmf.template
@@ -311,7 +321,7 @@ FC = ifort
 LD = ifort
 NETCDF = $(INSTALL_DIR)
 HDF5 = $(NETCDF)
-RTTOV = $(DART)/../rttov132_intel/
+RTTOV = $(DART)/../rttov13/
 ```
 Adding library path:
 ```console
