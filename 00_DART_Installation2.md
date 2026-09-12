@@ -312,9 +312,17 @@ Edit wrapper/Makefile:
 ```console
 FC=ifort -g -fPIC -nofor_main
 AR=/opt/software/intel/oneapi/compiler/2022.0.2/linux/bin-llvm/llvm-ar
+#CLIBS=-lm
+#CPPLIBS=-lm -lstdc++ -lgcc_s
 ```
 Compile using rttov_compile.sh:
 ```console
+module purge
+unset LD_PRELOAD
+unset AR
+unset RANLIB
+unset LD_LIBRARY_PATH
+ml mpi compiler
 cd $HOME/misc/rttov13/build
 ./rttov_compile.sh
 ```
@@ -333,6 +341,7 @@ Test Himawari-9 coefficient
 find $RTTOV_ROOT -iname "*himawari*"
 find $RTTOV_ROOT -iname "*ahi*"
 ```
+Compile WRF-DART
 ```console
 cd $HOME/misc/DART/build_template
 cp mkmf.template.rttov.ifort mkmf.template
