@@ -307,7 +307,26 @@ LDFLAGS_HDF5 = -L$(HDF5)/lib -lhdf5_fortran -lhdf5
 
 FFLAGS_NETCDF = -I$(NETCDF)/include
 LDFLAGS_NETCDF = -L$(NETCDF)/lib -lnetcdff -lnetcdf
-
+```
+Compile using rttov_compile.sh:
+```console
+cd $HOME/misc/rttov13/build
+./rttov_compile.sh
+```
+Check executable and library files:
+```console
+find $HOME/misc/rttov13/bin -type f
+find $HOME/misc/rttov13/lib -type f
+```
+Set environment RTTOV
+```console
+export RTTOV_ROOT=$HOME/misc/rttov13
+export LD_LIBRARY_PATH=$RTTOV_ROOT/lib:$LD_LIBRARY_PATH
+```
+Test Himawari-9 coefficient
+```console
+find $RTTOV_ROOT -iname "*himawari*"
+find $RTTOV_ROOT -iname "*ahi*"
 ```
 ```console
 cd $HOME/misc/DART/build_template
