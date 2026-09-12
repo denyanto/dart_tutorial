@@ -290,6 +290,21 @@ Confirm the executable file:
 ```console
 convert_pb_netcdf
 ```
+### Observation IV - HIMAWARI-9 AHI
+```console
+cd $HOME/misc/DART/build_template
+cp mkmf.template.rttov.ifort mkmf.template
+```
+Edit mkmf.template:
+```console
+MPIFC = mpif90
+MPILD = mpif90
+FC = ifort
+LD = ifort
+NETCDF = $(INSTALL_DIR)
+HDF5 = $(NETCDF)
+RTTOV = $(DART)/../rttov132_intel/
+```
 
 
 ## Create conda environment **dart**
