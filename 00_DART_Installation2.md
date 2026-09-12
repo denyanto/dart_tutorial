@@ -156,15 +156,15 @@ cp build_templates/mkmf.template.intel.linux build_templates/mkmf.template
 
 Edit in the build_templates/mkmf.template file
 ```console
-MPIFC = mpiifort
-MPILD = mpiifort
-FC = ifort
-LD = ifort
-NETCDF = $INSTALL_DIR
-INCS = -I$(NETCDF)/include
-LIBS = -L$(NETCDF)/lib -lnetcdf -lnetcdff -lhdf5_hl -lhdf5
-FFLAGS = -O2 $(INCS)
-LDFLAGS = $(FFLAGS) $(LIBS)
+MPIFC=mpiifort
+MPILD=mpiifort
+FC=ifort
+LD=ifort
+NETCDF=$INSTALL_DIR
+INCS=-I$(NETCDF)/include
+LIBS=-L$(NETCDF)/lib -lnetcdf -lnetcdff -lhdf5_hl -lhdf5
+FFLAGS=-O2 $(INCS)
+LDFLAGS=$(FFLAGS) $(LIBS)
 ```
 
 Build and test DART 
