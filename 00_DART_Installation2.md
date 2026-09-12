@@ -291,6 +291,14 @@ Confirm the executable file:
 convert_pb_netcdf
 ```
 ### Observation IV - HIMAWARI-9 AHI
+Download and Install RTTOV ver 13.2 from https://nwp-saf.eumetsat.int
+```console
+tar xf rttov132.tar.xz
+cd rttov13ls build/arch/
+
+
+```
+
 ```console
 cd $HOME/misc/DART/build_template
 cp mkmf.template.rttov.ifort mkmf.template
