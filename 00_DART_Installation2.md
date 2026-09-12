@@ -308,6 +308,11 @@ LDFLAGS_HDF5 = -L$(HDF5)/lib -lhdf5_fortran -lhdf5
 FFLAGS_NETCDF = -I$(NETCDF)/include
 LDFLAGS_NETCDF = -L$(NETCDF)/lib -lnetcdff -lnetcdf
 ```
+Edit wrapper/Makefile:
+```console
+FC=ifort -g -fPIC -nofor_main
+AR=/opt/software/intel/oneapi/compiler/2022.0.2/linux/bin-llvm/llvm-ar
+```
 Compile using rttov_compile.sh:
 ```console
 cd $HOME/misc/rttov13/build
