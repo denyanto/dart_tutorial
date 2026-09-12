@@ -343,8 +343,8 @@ find $RTTOV_ROOT -iname "*ahi*"
 ```
 Compile WRF-DART
 ```console
-cd $HOME/misc/DART/build_template
-cp mkmf.template.rttov.ifort mkmf.template
+cd $HOME/misc/DART/build_templates
+cp mkmf.template.rttov.intel mkmf.template
 ```
 Edit mkmf.template:
 ```console
@@ -354,7 +354,7 @@ FC = ifort
 LD = ifort
 NETCDF = $(INSTALL_DIR)
 HDF5 = $(NETCDF)
-RTTOV = $(DART)/../rttov13/
+RTTOV = $(HOME)/misc/rttov13/lib/
 ```
 Adding library path:
 ```console
@@ -459,6 +459,11 @@ quantity_files = '../../../assimilation_code/modules/observations/atmosphere_qua
       '999',
 /
 
+```
+Compiling:
+```console
+cd $DART/models/wrf/work
+./quickbuild.sh
 ```
 
 ## Create conda environment **dart**
