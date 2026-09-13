@@ -348,8 +348,8 @@ cp mkmf.template.rttov.intel mkmf.template
 ```
 Edit mkmf.template:
 ```console
-MPIFC = mpif90
-MPILD = mpif90
+MPIFC = mpif90 -f90=ifort
+MPILD = mpif90 -f90=ifort
 FC = ifort
 LD = ifort
 NETCDF = $(INSTALL_DIR)
