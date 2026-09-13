@@ -295,7 +295,7 @@ Download and Install RTTOV ver 13.2 from https://nwp-saf.eumetsat.int
 ```console
 mkdir rttov13
 cd rttov13
-tar xf rttov132.tar.xz
+tar xf ../rttov132.tar.xz
 ```
 Edit build/Makefile.local
 ```console
@@ -361,6 +361,11 @@ Adding library path:
 export RTTOV_ROOT=$HOME/misc/rttov13
 export LD_LIBRARY_PATH=$RTTOV_ROOT/lib:$LD_LIBRARY_PATH
 ```
+Compiling:
+```console
+cd $DART/models/wrf/work
+./quickbuild.sh
+```
 Edit input.nml DART
 ```console&preprocess_nml
 &preprocess_nml
@@ -390,73 +395,17 @@ quantity_files = '../../../assimilation_code/modules/observations/atmosphere_qua
 
    default_state_variables = .false.
 
-   wrf_state_variables =
-
-      'U',
-      'QTY_U_WIND_COMPONENT',
-      'TYPE_U',
-      'UPDATE',
-      '999',
-
-      'V',
-      'QTY_V_WIND_COMPONENT',
-      'TYPE_V',
-      'UPDATE',
-      '999',
-
-      'W',
-      'QTY_VERTICAL_VELOCITY',
-      'TYPE_W',
-      'UPDATE',
-      '999',
-
-      'THM',
-      'QTY_POTENTIAL_TEMPERATURE',
-      'TYPE_T',
-      'UPDATE',
-      '999',
-
-      'PH',
-      'QTY_GEOPOTENTIAL_HEIGHT',
-      'TYPE_GZ',
-      'UPDATE',
-      '999',
-
-      'MU',
-      'QTY_PRESSURE',
-      'TYPE_MU',
-      'UPDATE',
-      '999',
-
-      'QVAPOR',
-      'QTY_VAPOR_MIXING_RATIO',
-      'TYPE_QV',
-      'UPDATE',
-      '999',
-
-      'T2',
-      'QTY_2M_TEMPERATURE',
-      'TYPE_T2',
-      'UPDATE',
-      '999',
-
-      'PSFC',
-      'QTY_SURFACE_PRESSURE',
-      'TYPE_PS',
-      'UPDATE',
-      '999',
-
-      'TSK',
-      'QTY_SKIN_TEMPERATURE',
-      'TYPE_TSK',
-      'UPDATE',
-      '999',
-
-      'HGT',
-      'QTY_SURFACE_ELEVATION',
-      'TYPE_HGT',
-      'UPDATE',
-      '999',
+   wrf_state_variables = 'U',     'QTY_U_WIND_COMPONENT',     'TYPE_U',    'UPDATE','999',
+                         'V',     'QTY_V_WIND_COMPONENT',     'TYPE_V',    'UPDATE','999',
+                         'W',     'QTY_VERTICAL_VELOCITY',    'TYPE_W',    'UPDATE','999',
+                         'PH',    'QTY_GEOPOTENTIAL_HEIGHT',  'TYPE_GZ',   'UPDATE','999',
+                         'THM',   'QTY_POTENTIAL_TEMPERATURE','TYPE_T',    'UPDATE','999',
+                         'MU',    'QTY_PRESSURE',             'TYPE_MU',   'UPDATE','999',
+                         'QVAPOR','QTY_VAPOR_MIXING_RATIO',   'TYPE_QV',   'UPDATE','999',
+                         'T2',    'QTY_2M_TEMPERATURE',       'TYPE_T2',   'UPDATE','999',
+                         'PSFC',  'QTY_SURFACE_PRESSURE',     'TYPE_PSFC', 'UPDATE','999',
+                         'TSK',   'QTY_SKIN_TEMPERATURE',     'TYPE_TSK',  'UPDATE','999',
+                         'HGT',   'QTY_SURFACE_ELEVATION',    'TYPE_HGT',  'UPDATE','999',
 /
 
 ```
