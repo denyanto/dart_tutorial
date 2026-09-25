@@ -222,7 +222,7 @@ Inspect the output messages
 
 ## Check the ROMS-DART folder
 ```console
-ls $HOME/misc/DART/models/ROMS_rutgers/work
+ls /scratch/inanwp/dart-work/ROMS_rutgers
 ```
 It should contain several programs:
 ```console
@@ -232,7 +232,7 @@ create_fixed_network_seq  obs_seq_coverage        obs_sequence_tool  wakeup_filt
 create_obs_sequence       obs_seq_to_netcdf       obs_common_subset  obs_seq_verify
 model_mod_check             
 ```
-Edit the input.nml file:
+### Edit the input.nml file:
 ```console
 &model_nml
    roms_filename               = '../ssh/roms.nc'
@@ -288,4 +288,16 @@ Edit the input.nml file:
                                 'HFRADAR_V_CURRENT_COMPONENT',
                                 'HFRADAR_RADIAL_VELOCITY'
   /
+
+&perturb_single_instance_nml
+   ens_size               = 3
+   perturbation_amplitude = 0.1
+   input_files            = 'roms_template.nc'
+   output_files           = 'roms_mem_01.nc','roms_mem_02.nc','roms_mem_03.nc'
+/
+```
+### Use DART to add small perturbations to a ROMS file
+```console
+cd /scratch/inanwp/dart-work/ROMS_rutgers
+./perturb_single_instance
 ```
