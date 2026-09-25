@@ -219,3 +219,73 @@ Inspect the output messages
  ut"
   obs_sequence_tool Finished successfully.
 ```
+
+## Check the ROMS-DART folder
+```console
+ls $HOME/misc/DART/models/ROMS_rutgers/work
+```
+It should contain several programs:
+```console
+advance_time              fill_inflation_restart  obs_diag           perfect_model_obs
+closest_member_tool       filter                  obs_selection      perturb_single_instance
+create_fixed_network_seq  obs_seq_coverage        obs_sequence_tool  wakeup_filter
+create_obs_sequence       obs_seq_to_netcdf       obs_common_subset  obs_seq_verify
+model_mod_check             
+```
+Edit the input.nml file:
+```console
+&model_nml
+   roms_filename               = '../ssh/roms.nc'
+   assimilation_period_days    = 10
+   assimilation_period_seconds = 0
+   perturbation_amplitude      = 0.02
+   debug                       = 0
+   use_mean_SSH_from_template  = .true.
+   variables                   = 'temp', 'QTY_TEMPERATURE'        , 'NA' , 'NA', 'update'
+                                 'salt', 'QTY_SALINITY'           , '0.0', 'NA', 'update'
+                                 'u'   , 'QTY_U_CURRENT_COMPONENT', 'NA' , 'NA', 'update'
+                                 'v'   , 'QTY_V_CURRENT_COMPONENT', 'NA' , 'NA', 'update'
+                                 'zeta', 'QTY_SEA_SURFACE_HEIGHT' , 'NA' , 'NA', 'update'
+  /
+
+&assim_tools_nml
+   cutoff                          = 0.0236    ! ~300 km effective radius
+   sort_obs_inc                    = .false.
+   spread_restoration              = .false.
+   sampling_error_correction       = .false.
+   adaptive_localization_threshold = -1
+   output_localization_diagnostics = .false.
+   localization_diagnostics_file   = 'localization_diagnostics'
+   print_every_nth_obs             = 1000
+   distribute_mean                 = .true.
+  /
+
+&quality_control_nml
+   input_qc_threshold          = 5.0
+   enable_special_outlier_code = .false.
+   outlier_threshold           = 3.0
+  /
+
+&location_nml
+   horiz_dist_only           = .false.
+   vert_normalization_height = 4000.0
+  /
+
+&cov_cutoff_nml
+   select_localization = 1
+  /
+
+&obs_kind_nml
+   evaluate_these_obs_types   = ''
+   assimilate_these_obs_types = 'FLOAT_TEMPERATURE',
+                                'FLOAT_SALINITY',
+                                'DRIFTER_TEMPERATURE',
+                                'DRIFTER_U_CURRENT_COMPONENT',
+                                'DRIFTER_V_CURRENT_COMPONENT',
+                                'SATELLITE_SSH',
+                                'SATELLITE_BLENDED_SST',
+                                'HFRADAR_U_CURRENT_COMPONENT',
+                                'HFRADAR_V_CURRENT_COMPONENT',
+                                'HFRADAR_RADIAL_VELOCITY'
+  /
+```
