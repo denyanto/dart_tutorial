@@ -232,7 +232,7 @@ cmems_ssh_to_obs
 ### ROMS-Rutgers
 ```console
 cd $HOME/misc/DART/models/ROMS_rutgers/work
-./quickbuild.sh
+./quickbuild.sh reg_grid
 ```
 This would generate several programs:
 ```console
